@@ -1,0 +1,27 @@
+// 按需修改 THIRD_PARTY_PREBUILT 根目录（相对本 xcconfig：ios/xcconfig/）
+THIRD_PARTY_REL = $(PROJECT_DIR)/thirdparty/prebuilt
+THIRD_PARTY_HEADERS = $(THIRD_PARTY_REL)/include
+
+// 手写静态库检索路径（PLATFORM_NAME = iphoneos | iphonesimulator）
+LIBRARY_SEARCH_PATHS = $(inherited) $(THIRD_PARTY_REL)/$(PLATFORM_NAME)/lib $(THIRD_PARTY_REL)/lib/$(PLATFORM_NAME)
+
+HEADER_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../src $(PROJECT_DIR)/../mlcc $(PROJECT_DIR)/../cifa $(PROJECT_DIR)/../others $(THIRD_PARTY_HEADERS)
+
+// C++（Xcode 15+ 通常为 gnu++2b / gnu++23）
+CLANG_CXX_LANGUAGE_STANDARD = gnu++2b
+
+IPHONEOS_DEPLOYMENT_TARGET = 16.3
+
+// 在此处追加你放入 $(THIRD_PARTY_...)/lib 的库名；-lSDL3_mixer 依赖链需在编译 mixer 时已解析进对应 .a 或在此处继续 -lfluidsynth 等
+OTHER_LDFLAGS = $(inherited) -L$(THIRD_PARTY_REL)/$(PLATFORM_NAME)/lib \
+  -lSDL3 -lSDL3_image -lSDL3_ttf -lSDL3_mixer \
+  -llua -lyaml-cpp -lzip
+
+// 可按需解开（若在第三方目录提供 libopencc）
+// OTHER_LDFLAGS = $(OTHER_LDFLAGS) -lopencc
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
+
+// 预编译依赖目前只提供 arm64（Apple Silicon 模拟器/真机通用）。
+// 若你确实需要 Intel 模拟器（x86_64），需另外产出对应架构的 .a 并做 lipo 合并。
+EXCLUDED_ARCHS[sdk=iphonesimulator*] = x86_64

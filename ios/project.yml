@@ -1,0 +1,105 @@
+name: KYSCPP
+options:
+  bundleIdPrefix: com.kyscpp
+  deploymentTarget:
+    iOS: "16.3"
+  indentWidth: 4
+  usesTabs: false
+  minimumXcodeGenVersion: "2.35.0"
+  suppressWarnings:
+    # 首次生成可先忽略 Pods 等非必须警告
+    - deprecation
+
+configs:
+  Debug:
+    path: xcconfig/Debug.xcconfig
+    type: debug
+  Release:
+    path: xcconfig/Release.xcconfig
+    type: release
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: "" # 在本机填入你的 Team ID，或由 Xcode Signing 写入
+
+targets:
+  KYSCPP:
+    type: application
+    platform: iOS
+    supportedDestinations:
+      - iOS
+    deploymentTarget: "16.3"
+    settings:
+      base:
+        INFOPLIST_FILE: plist/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.kyscpp.kys
+        PRODUCT_NAME: KYSCPP
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "1.0.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
+    configFiles:
+      Debug: xcconfig/Debug.xcconfig
+      Release: xcconfig/Release.xcconfig
+    sources:
+      # 引擎与游戏（对应 Android jni/src/CMakeLists.txt + 更正 Cifa.cpp 路径）
+      - path: ../src
+        includes:
+          - "*.cpp"
+        group: Source/src
+      - path: ../cifa
+        includes:
+          - "Cifa.cpp"
+        group: Source/cifa
+      - path: ../mlcc
+        includes:
+          - "ZipFile.cpp"
+          - "strfunc.cpp"
+          - "filefunc.cpp"
+          - "PotConv.cpp"
+          - "SimpleCC.cpp"
+          - "SQLite3Wrapper.cpp"
+        group: Source/mlcc
+      - path: ../others
+        includes:
+          - "Hanz2Piny.cpp"
+        group: Source/others
+      - path: BundledResources/game.zip
+        buildPhase: resources
+        type: file
+        group: BundledResources
+    dependencies:
+      # 常见系统框架：按你实际编的 SDL / mixer 删减或追加
+      - sdk: libiconv.tbd
+      - sdk: libsqlite3.tbd
+      - sdk: libz.tbd
+      - sdk: AudioToolbox.framework
+      - sdk: AVFoundation.framework
+      - sdk: CoreAudio.framework
+      - sdk: CoreGraphics.framework
+      - sdk: CoreMedia.framework
+      - sdk: CoreVideo.framework
+      - sdk: CoreText.framework
+      - sdk: CoreMotion.framework
+      - sdk: CoreHaptics.framework
+      - sdk: CoreBluetooth.framework
+      - sdk: GameController.framework
+      - sdk: ImageIO.framework
+      - sdk: Metal.framework
+      - sdk: OpenGLES.framework
+      - sdk: QuartzCore.framework
+      - sdk: UIKit.framework
+      - sdk: Foundation.framework
+      # UTType 常量（kUTTypeGIF 等）在 iOS 16+ 仍可能走旧符号，补上兼容框架
+      - sdk: MobileCoreServices.framework
+
+schemes:
+  KYSCPP:
+    build:
+      targets:
+        KYSCPP: all
+    run:
+      config: Debug

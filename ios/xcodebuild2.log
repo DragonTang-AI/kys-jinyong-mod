@@ -1,0 +1,454 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project KYSCPP.xcodeproj -scheme KYSCPP -configuration Debug -sdk iphonesimulator -destination "generic/platform=iOS Simulator" CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO build
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = 
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+note: Using codesigning identity override: 
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'KYSCPP' in project 'KYSCPP' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/admin/Downloads/kys-cpp-master/ios/KYSCPP.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Font.o /Users/admin/Downloads/kys-cpp-master/src/Font.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Font.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Font.dia -c /Users/admin/Downloads/kys-cpp-master/src/Font.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Font.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Font.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Font.cpp:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/GameUtil.h:2:
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                   ^
+      |                                 (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                       ~~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                                            ^                  
+      |                                                                          (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:597:13: warning: unused variable 'error' [-Wunused-variable]
+  597 |         int error = 0;
+      |             ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:607:13: warning: unused variable 'status' [-Wunused-variable]
+  607 |         int status = 0;    //0: new line, 1: comment, 2: section, 3: key, 4: value
+      |             ^~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:864:14: warning: unused variable 'first' [-Wunused-variable]
+  864 |         bool first = true;
+      |              ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:905:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  905 |             int pos = s.find(oldstring);
+      |                 ~~~   ~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:910:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  910 |                 pos = s.find(oldstring, pos + newstring.length());
+      |                     ~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Font.cpp:4:
+/Users/admin/Downloads/kys-cpp-master/src/TextureManager.h:53:49: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   53 |     int getTextureCount() const { return group_.size(); }
+      |                                   ~~~~~~ ~~~~~~~^~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Event.o /Users/admin/Downloads/kys-cpp-master/src/Event.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Event.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Event.dia -c /Users/admin/Downloads/kys-cpp-master/src/Event.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Event.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Event.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.h:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/DrawNode.h:2:
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:94:42: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   94 |     int getChildCount() { return childs_.size(); }
+      |                           ~~~~~~ ~~~~~~~~^~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:265:35: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  265 |         for (int i = root_.size() - 1; i >= 0; i--)
+      |                  ~   ~~~~~~~~~~~~~^~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.h:4:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/GameUtil.h:2:
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                   ^
+      |                                 (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                       ~~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                                            ^                  
+      |                                                                          (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:597:13: warning: unused variable 'error' [-Wunused-variable]
+  597 |         int error = 0;
+      |             ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:607:13: warning: unused variable 'status' [-Wunused-variable]
+  607 |         int status = 0;    //0: new line, 1: comment, 2: section, 3: key, 4: value
+      |             ^~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:864:14: warning: unused variable 'first' [-Wunused-variable]
+  864 |         bool first = true;
+      |              ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:905:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  905 |             int pos = s.find(oldstring);
+      |                 ~~~   ~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:910:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  910 |                 pos = s.find(oldstring, pos + newstring.length());
+      |                     ~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ScriptCifa.o /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ScriptCifa.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ScriptCifa.dia -c /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ScriptCifa.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ScriptCifa.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.h:3:
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.h:221:177: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  221 |         return type == CalUnitType::Constant || type == CalUnitType::String || type == CalUnitType::Parameter || type == CalUnitType::Function || type == CalUnitType::Operator && v.size() > 0;
+      |                                                                                                                                                ~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.h:221:177: note: place parentheses around the '&&' expression to silence this warning
+  221 |         return type == CalUnitType::Constant || type == CalUnitType::String || type == CalUnitType::Parameter || type == CalUnitType::Function || type == CalUnitType::Operator && v.size() > 0;
+      |                                                                                                                                                                                 ^              
+      |                                                                                                                                                   (                                            )
+In file included from /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.cpp:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.h:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/DrawNode.h:2:
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:94:42: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   94 |     int getChildCount() { return childs_.size(); }
+      |                           ~~~~~~ ~~~~~~~~^~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:265:35: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  265 |         for (int i = root_.size() - 1; i >= 0; i--)
+      |                  ~   ~~~~~~~~~~~~~^~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/ScriptCifa.cpp:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Event.h:4:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/GameUtil.h:2:
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                   ^
+      |                                 (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                       ~~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                                            ^                  
+      |                                                                          (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:597:13: warning: unused variable 'error' [-Wunused-variable]
+  597 |         int error = 0;
+      |             ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:607:13: warning: unused variable 'status' [-Wunused-variable]
+  607 |         int status = 0;    //0: new line, 1: comment, 2: section, 3: key, 4: value
+      |             ^~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:864:14: warning: unused variable 'first' [-Wunused-variable]
+  864 |         bool first = true;
+      |              ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:905:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  905 |             int pos = s.find(oldstring);
+      |                 ~~~   ~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:910:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  910 |                 pos = s.find(oldstring, pos + newstring.length());
+      |                     ~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/NewSave.o /Users/admin/Downloads/kys-cpp-master/src/NewSave.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/NewSave.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/NewSave.dia -c /Users/admin/Downloads/kys-cpp-master/src/NewSave.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/NewSave.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/NewSave.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/NewSave.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/NewSave.h:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/GameUtil.h:2:
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                   ^
+      |                                 (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                       ~~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                                            ^                  
+      |                                                                          (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:597:13: warning: unused variable 'error' [-Wunused-variable]
+  597 |         int error = 0;
+      |             ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:607:13: warning: unused variable 'status' [-Wunused-variable]
+  607 |         int status = 0;    //0: new line, 1: comment, 2: section, 3: key, 4: value
+      |             ^~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:864:14: warning: unused variable 'first' [-Wunused-variable]
+  864 |         bool first = true;
+      |              ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:905:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  905 |             int pos = s.find(oldstring);
+      |                 ~~~   ~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:910:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  910 |                 pos = s.find(oldstring, pos + newstring.length());
+      |                     ~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.o /Users/admin/Downloads/kys-cpp-master/src/Engine.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.dia -c /Users/admin/Downloads/kys-cpp-master/src/Engine.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.o
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:298:14: warning: unused variable 'pix_fmt' [-Wunused-variable]
+  298 |     uint32_t pix_fmt;
+      |              ^~~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:653:22: warning: implicit conversion loses integer precision: 'SDL_WindowFlags' (aka 'unsigned long long') to 'uint32_t' (aka 'unsigned int') [-Wshorten-64-to-32]
+  653 |     uint32_t state = SDL_GetWindowFlags(window_);
+      |              ~~~~~   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:967:10: warning: unused variable 's' [-Wunused-variable]
+  967 |     auto s = SDL_GetScancodeFromKey(key, nullptr);
+      |          ^
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1041:14: warning: unused variable 's' [-Wunused-variable]
+ 1041 |         auto s = SDL_RumbleGamepad(cur_game_controller_, l * 65535 / 100, h * 65535 / 100, time);
+      |              ^
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1095:22: warning: variable 'c' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+ 1095 |             else if (style == 1)
+      |                      ^~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1099:47: note: uninitialized use occurs here
+ 1099 |             SDL_FillSurfaceRect(square_s, &r, c);
+      |                                               ^
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1095:18: note: remove the 'if' if its condition is always true
+ 1095 |             else if (style == 1)
+      |                  ^~~~~~~~~~~~~~~
+ 1096 |             {
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1089:18: note: initialize the variable 'c' to silence this warning
+ 1089 |             int c;
+      |                  ^
+      |                   = 0
+/Users/admin/Downloads/kys-cpp-master/src/Engine.cpp:1245:15: error: cannot initialize a variable of type 'char *' with an rvalue of type 'const char *'
+ 1245 |     if (char* base = SDL_GetBasePath())
+      |               ^      ~~~~~~~~~~~~~~~~~
+5 warnings and 1 error generated.
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/DrawNode.o /Users/admin/Downloads/kys-cpp-master/src/DrawNode.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/DrawNode.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/DrawNode.dia -c /Users/admin/Downloads/kys-cpp-master/src/DrawNode.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/DrawNode.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/DrawNode.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/DrawNode.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/DrawNode.h:2:
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:94:42: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   94 |     int getChildCount() { return childs_.size(); }
+      |                           ~~~~~~ ~~~~~~~~^~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:265:35: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  265 |         for (int i = root_.size() - 1; i >= 0; i--)
+      |                  ~   ~~~~~~~~~~~~~^~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/DrawNode.cpp:3:
+/Users/admin/Downloads/kys-cpp-master/src/TextureManager.h:53:49: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   53 |     int getTextureCount() const { return group_.size(); }
+      |                                   ~~~~~~ ~~~~~~~^~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Console.o /Users/admin/Downloads/kys-cpp-master/src/Console.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Console.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Console.dia -c /Users/admin/Downloads/kys-cpp-master/src/Console.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Console.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Console.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Console.cpp:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/BattleNetwork.h:7:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/BattleMenu.h:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Head.h:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/TextBox.h:2:
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:94:42: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   94 |     int getChildCount() { return childs_.size(); }
+      |                           ~~~~~~ ~~~~~~~~^~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:265:35: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  265 |         for (int i = root_.size() - 1; i >= 0; i--)
+      |                  ~   ~~~~~~~~~~~~~^~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Console.cpp:2:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/BattleNetwork.h:8:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/GameUtil.h:2:
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:51: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                   ^
+      |                                 (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                       ~~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:739:92: note: place parentheses around the '&&' expression to silence this warning
+  739 |                             && (v.front() == '\'' && v.back() == '\'' || v.front() == '\"' && v.back() == '\"'))
+      |                                                                                            ^                  
+      |                                                                          (                                    )
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:597:13: warning: unused variable 'error' [-Wunused-variable]
+  597 |         int error = 0;
+      |             ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:607:13: warning: unused variable 'status' [-Wunused-variable]
+  607 |         int status = 0;    //0: new line, 1: comment, 2: section, 3: key, 4: value
+      |             ^~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:864:14: warning: unused variable 'first' [-Wunused-variable]
+  864 |         bool first = true;
+      |              ^~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:905:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  905 |             int pos = s.find(oldstring);
+      |                 ~~~   ~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/mlcc/INIReader.h:910:25: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  910 |                 pos = s.find(oldstring, pos + newstring.length());
+      |                     ~ ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cloud.o /Users/admin/Downloads/kys-cpp-master/src/Cloud.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cloud.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cloud.dia -c /Users/admin/Downloads/kys-cpp-master/src/Cloud.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cloud.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cloud.o
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Cloud.cpp:1:
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Cloud.h:3:
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:94:42: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   94 |     int getChildCount() { return childs_.size(); }
+      |                           ~~~~~~ ~~~~~~~~^~~~~~
+/Users/admin/Downloads/kys-cpp-master/src/RunNode.h:265:35: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+  265 |         for (int i = root_.size() - 1; i >= 0; i--)
+      |                  ~   ~~~~~~~~~~~~~^~~
+In file included from /Users/admin/Downloads/kys-cpp-master/src/Cloud.cpp:4:
+/Users/admin/Downloads/kys-cpp-master/src/TextureManager.h:53:49: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+   53 |     int getTextureCount() const { return group_.size(); }
+      |                                   ~~~~~~ ~~~~~~~^~~~~~
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cifa.o /Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cifa.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cifa.dia -c /Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cifa.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Cifa.o
+In file included from /Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1:
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.h:221:177: warning: '&&' within '||' [-Wlogical-op-parentheses]
+  221 |         return type == CalUnitType::Constant || type == CalUnitType::String || type == CalUnitType::Parameter || type == CalUnitType::Function || type == CalUnitType::Operator && v.size() > 0;
+      |                                                                                                                                                ~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.h:221:177: note: place parentheses around the '&&' expression to silence this warning
+  221 |         return type == CalUnitType::Constant || type == CalUnitType::String || type == CalUnitType::Parameter || type == CalUnitType::Function || type == CalUnitType::Operator && v.size() > 0;
+      |                                                                                                                                                                                 ^              
+      |                                                                                                                                                   (                                            )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:145:9: error: non-void lambda does not return a value in all control paths [-Werror,-Wreturn-type]
+  145 |         });
+      |         ^
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:164:9: error: non-void lambda does not return a value in all control paths [-Werror,-Wreturn-type]
+  164 |         });
+      |         ^
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1504:58: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 1504 |                             || !std::prev(it)->can_cal() && (op == "+" || op == "-"))    //+-退化为单目运算的情况
+      |                             ~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1504:58: note: place parentheses around the '&&' expression to silence this warning
+ 1504 |                             || !std::prev(it)->can_cal() && (op == "+" || op == "-"))    //+-退化为单目运算的情况
+      |                                                          ^                          
+      |                                (                                                    )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1512:41: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 1511 |                                 if ((it->str == "+" || it->str == "-" || it->str == "!")
+      |                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1512 |                                         && (itr->type == CalUnitType::Constant || itr->type == CalUnitType::Function || itr->type == CalUnitType::Parameter)
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1513 |                                     || (it->str == "++" || it->str == "--")
+      |                                     ~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1512:41: note: place parentheses around the '&&' expression to silence this warning
+ 1511 |                                 if ((it->str == "+" || it->str == "-" || it->str == "!")
+      |                                     
+      |                                     (
+ 1512 |                                         && (itr->type == CalUnitType::Constant || itr->type == CalUnitType::Function || itr->type == CalUnitType::Parameter)
+      |                                         ^                                                                                                                   
+      |                                                                                                                                                             )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1514:41: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 1513 |                                     || (it->str == "++" || it->str == "--")
+      |                                     ~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1514 |                                         && itr->type == CalUnitType::Parameter)
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:1514:41: note: place parentheses around the '&&' expression to silence this warning
+ 1513 |                                     || (it->str == "++" || it->str == "--")
+      |                                        (
+ 1514 |                                         && itr->type == CalUnitType::Parameter)
+      |                                         ^                                     
+      |                                                                               )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2183:63: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 2183 |                     if (c.v[0].type == CalUnitType::Parameter && p[c.v[0].str].type1 == "__"
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2184 |                         || c.v[0].type != CalUnitType::Parameter)
+      |                         ~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2183:63: note: place parentheses around the '&&' expression to silence this warning
+ 2183 |                     if (c.v[0].type == CalUnitType::Parameter && p[c.v[0].str].type1 == "__"
+      |                                                               ^                             
+      |                         (                                                                   )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2488:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 2488 |             if (c.v.size() < 2 || c.v.size() == 2 && c.v[1].str != ":")
+      |                                ~~ ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2488:51: note: place parentheses around the '&&' expression to silence this warning
+ 2488 |             if (c.v.size() < 2 || c.v.size() == 2 && c.v[1].str != ":")
+      |                                                   ^                   
+      |                                   (                                   )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2495:51: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 2495 |             if (c.v.size() < 1 || c.v.size() == 1 && c.v[0].str != ":")
+      |                                ~~ ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2495:51: note: place parentheses around the '&&' expression to silence this warning
+ 2495 |             if (c.v.size() < 1 || c.v.size() == 1 && c.v[0].str != ":")
+      |                                                   ^                   
+      |                                   (                                   )
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2517:48: warning: '&&' within '||' [-Wlogical-op-parentheses]
+ 2517 |         if (father == nullptr || c.str == "{}" && (father->type == CalUnitType::Union || father->type == CalUnitType::Key))
+      |                               ~~ ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Downloads/kys-cpp-master/cifa/Cifa.cpp:2517:48: note: place parentheses around the '&&' expression to silence this warning
+ 2517 |         if (father == nullptr || c.str == "{}" && (father->type == CalUnitType::Union || father->type == CalUnitType::Key))
+      |                                                ^                                                                          
+      |                                  (                                                                                        )
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ChemistryEngine.o /Users/admin/Downloads/kys-cpp-master/src/ChemistryEngine.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ChemistryEngine.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ChemistryEngine.dia -c /Users/admin/Downloads/kys-cpp-master/src/ChemistryEngine.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ChemistryEngine.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/ChemistryEngine.o
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Camera.o /Users/admin/Downloads/kys-cpp-master/src/Camera.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Camera.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Camera.dia -c /Users/admin/Downloads/kys-cpp-master/src/Camera.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Camera.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Camera.o
+
+CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Button.o /Users/admin/Downloads/kys-cpp-master/src/Button.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+    cd /Users/admin/Downloads/kys-cpp-master/ios
+    
+    Using response file: /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/admin/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/admin/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Index.noindex/DataStore @/Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Button.d --serialize-diagnostics /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Button.dia -c /Users/admin/Downloads/kys-cpp-master/src/Button.cpp -o /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Button.o -index-unit-output-path /KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Button.o
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileC /Users/admin/Library/Developer/Xcode/DerivedData/KYSCPP-evgvjfauhqgohvamrbntycwhvtyv/Build/Intermediates.noindex/KYSCPP.build/Debug-iphonesimulator/KYSCPP.build/Objects-normal/x86_64/Engine.o /Users/admin/Downloads/kys-cpp-master/src/Engine.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'KYSCPP' from project 'KYSCPP')
+	Building project KYSCPP with scheme KYSCPP and configuration Debug
+(2 failures)

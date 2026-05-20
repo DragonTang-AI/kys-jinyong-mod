@@ -1,0 +1,147 @@
+﻿#pragma once
+#include "INIReader.h"
+#include "PlatformMobile.h"
+#include "runtime_format.h"    //支持std::format的运行时格式化，c++26前暂时凑合用
+#include <cmath>
+#include <cstdint>
+#include <print>
+#include "filefunc.h"
+
+#ifdef __ANDROID__
+#include <android/log.h>
+#include <SDL3/SDL_system.h>
+#endif
+
+#if defined(__APPLE__) && TARGET_OS_IPHONE
+#include <SDL3/SDL_filesystem.h>
+#include <SDL3/SDL_log.h>
+#endif
+
+//此类中是一些游戏中的公式，例如使用物品的效果，伤害公式等
+//通常来说应该全部是静态函数
+class GameUtil : public INIReaderNormal
+{
+private:
+    GameUtil();
+    ~GameUtil();
+
+public:
+    static GameUtil* getInstance()
+    {
+        static GameUtil gu;
+        return &gu;
+    }
+
+    static const std::string& VERSION()
+    {
+        static std::string v = "";
+        return v;
+    }
+
+    static std::string& PATH()
+    {
+        static std::string s = autoGamePath();
+        return s;
+    }
+
+    static std::string autoGamePath()
+    {
+        std::string s;
+#if defined(__ANDROID__)
+        s = "/sdcard/kys-cpp/game/";
+        if (!filefunc::fileExist(s + "config/kysmod.ini"))
+        {
+            s = std::string(SDL_GetAndroidExternalStoragePath()) + "/game/";
+        }
+        if (!filefunc::fileExist(s + "config/kysmod.ini"))
+        {
+            // 使用 extractAssetsIfNeeded() 解压到内部存储的路径
+            s = std::string(SDL_GetAndroidInternalStoragePath()) + "/game/";
+        }
+#elif defined(__APPLE__) && TARGET_OS_IPHONE
+        if (char* pref = SDL_GetPrefPath("kys-cpp", "kys"))
+        {
+            s.assign(pref);
+            SDL_free(pref);
+            if (!s.empty() && s.back() != '/')
+            {
+                s += '/';
+            }
+            s += "game/";
+        }
+#else
+        s = "../game/";
+#endif
+        return s;
+    }
+
+    static int sign(int v)
+    {
+        if (v > 0)
+        {
+            return 1;
+        }
+        if (v < 0)
+        {
+            return -1;
+        }
+        return 0;
+    }
+
+    //返回限制值
+    template <typename T, typename T2>
+    static T clamp(T current, T2 min_value, T2 max_value)
+    {
+        if (current < min_value)
+        {
+            current = min_value;
+        }
+        if (current > max_value)
+        {
+            current = max_value;
+        }
+        return current;
+    }
+
+    //clamp_int是直接修改引用值，有重载
+    static void clamp_int(int& current, int min_value, int max_value)
+    {
+        current = clamp(current, min_value, max_value);
+    }
+
+    static void clamp_int(int16_t& current, int min_value, int max_value)
+    {
+        current = clamp(current, min_value, max_value);
+    }
+
+    static void clamp_int(uint16_t& current, int min_value, int max_value)
+    {
+        current = clamp(current, min_value, max_value);
+    }
+
+    //计算某个数值的位数
+    static int digit(int x)
+    {
+        int n = floor(log10(0.5 + abs(x)));
+        if (x >= 0)
+        {
+            return n;
+        }
+        else
+        {
+            return n + 1;
+        }
+    }
+};
+
+template <typename... Args>
+void LOG(std::format_string<Args...> fmt, Args... args)
+{
+    auto str = std::format(fmt, std::forward<Args>(args)...);
+    fputs(str.c_str(), stdout);
+#ifdef __ANDROID__
+    __android_log_print(ANDROID_LOG_INFO, "KYS", "%s", str.c_str());
+#elif defined(__APPLE__) && TARGET_OS_IPHONE
+    SDL_Log("%s", str.c_str());
+#endif
+}
