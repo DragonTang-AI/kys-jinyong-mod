@@ -175,17 +175,26 @@ Audio::~Audio()
 
 void Audio::init()
 {
-    std::string music_path;
-    std::string asound_path;
-    std::string esound_path;
-    const std::string music_dir = GameUtil::PATH() + "music/";
-    for (int i = 0; i < 100; i++)
+    // Lazy loading: pre-allocate vectors with nullptr, load on demand in playXXX()
+    // This avoids blocking startup with 300+ file I/O operations
+    music_.resize(100, nullptr);
+    asound_.resize(100, nullptr);
+    esound_.resize(100, nullptr);
+}
+
+void Audio::playMusic(int num)
+{
+    if (num < 0 || num >= (int)music_.size()) return;
+    
+    // Lazy load on first play
+    if (music_[num] == nullptr)
     {
+        std::string music_path;
+        const std::string music_dir = GameUtil::PATH() + "music/";
 #ifdef KYS_MOBILE_EXTRACT_ASSETS
-        music_path.clear();
         for (const char* ext : { ".mp3", ".ogg", ".wav", ".mid" })
         {
-            auto p = std::format("{}{}{}", music_dir, i, ext);
+            auto p = std::format("{}{}{}", music_dir, num, ext);
             if (filefunc::fileExist(p))
             {
                 music_path = std::move(p);
@@ -193,35 +202,20 @@ void Audio::init()
             }
         }
 #else
-        music_path = std::format("{}music/{}.mid", GameUtil::PATH(), i);
+        music_path = std::format("{}music/{}.mid", GameUtil::PATH(), num);
         if (!filefunc::fileExist(music_path))
         {
-            music_path = std::format("{}music/{}.mp3", GameUtil::PATH(), i);
+            music_path = std::format("{}music/{}.mp3", GameUtil::PATH(), num);
         }
 #endif
-        if (!music_path.empty())
+        if (!music_path.empty() && filefunc::fileExist(music_path))
         {
-            music_.push_back(loadMusic(music_path));
+            music_[num] = loadMusic(music_path);
         }
-        else
-        {
-            music_.push_back(nullptr);
-        }
-
-        asound_path = std::format("{}sound/atk{:02}.wav", GameUtil::PATH(), i);
-        asound_.push_back(loadWav(asound_path));
-
-        esound_path = std::format("{}sound/e{:02}.wav", GameUtil::PATH(), i);
-        esound_.push_back(loadWav(esound_path));
     }
-}
-
-void Audio::playMusic(int num)
-{
-    if (num < 0 || num >= music_.size() || music_[num] == 0)
-    {
-        return;
-    }
+    
+    if (music_[num] == nullptr) return;
+    
     stopMusic();
     playMusic(music_[num]);
     current_music_ = music_[num];
@@ -230,29 +224,42 @@ void Audio::playMusic(int num)
 
 void Audio::playASound(int num, int volume)
 {
-    if (num < 0 || num >= asound_.size() || asound_[num] == 0)
+    if (num < 0 || num >= (int)asound_.size()) return;
+    
+    // Lazy load on first play
+    if (asound_[num] == nullptr)
     {
-        return;
+        std::string asound_path = std::format("{}sound/atk{:02}.wav", GameUtil::PATH(), num);
+        if (filefunc::fileExist(asound_path))
+        {
+            asound_[num] = loadWav(asound_path);
+        }
     }
-    //BASS_ChannelStop(current_sound_);
-    if (volume < 0 || volume > 100)
-    {
-        volume = volume_wav_;
-    }
+    
+    if (asound_[num] == nullptr) return;
+    
+    if (volume < 0 || volume > 100) volume = volume_wav_;
     playWav(asound_[num], volume);
     current_sound_ = asound_[num];
 }
 
 void Audio::playESound(int num, int volume)
 {
-    if (num < 0 || num >= esound_.size() || esound_[num] == 0)
+    if (num < 0 || num >= (int)esound_.size()) return;
+    
+    // Lazy load on first play
+    if (esound_[num] == nullptr)
     {
-        return;
+        std::string esound_path = std::format("{}sound/e{:02}.wav", GameUtil::PATH(), num);
+        if (filefunc::fileExist(esound_path))
+        {
+            esound_[num] = loadWav(esound_path);
+        }
     }
-    if (volume < 0 || volume > 100)
-    {
-        volume = volume_wav_;
-    }
+    
+    if (esound_[num] == nullptr) return;
+    
+    if (volume < 0 || volume > 100) volume = volume_wav_;
     playWav(esound_[num], volume);
     current_sound_ = esound_[num];
 }

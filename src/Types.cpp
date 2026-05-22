@@ -724,8 +724,6 @@ void Role::resetBattleInfo()
     Role r0;
     *(RoleSave*)&r0 = *(RoleSave*)this;
     *this = r0;
-    Rage = 0;           //战斗开始时怒气清零
-    RageCoolDown = 0;   //战斗开始时冷却清零
 }
 
 bool Item::isCompass()

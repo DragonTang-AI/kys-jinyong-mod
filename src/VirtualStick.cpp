@@ -43,6 +43,11 @@ VirtualStick::VirtualStick()
 
     addButton(button_view_, 310, w_ * 0.4 - 25, h_ * 0.9, GAMEPAD_BUTTON_BACK);
     addButton(button_menu_, 308, w_ * 0.6 - 25, h_ * 0.9, GAMEPAD_BUTTON_START);
+
+    // M键大地图按钮（右上角，大地图坐标文字右边）
+    addButton(button_map_, 314, w_ - 70, 15 + 20, GAMEPAD_BUTTON_RIGHT_SHOULDER);
+    button_map_->setText("M");
+    button_map_->setTextPosition(-8, -12);
 }
 
 void VirtualStick::dealEvent(EngineEvent& e)
@@ -186,6 +191,15 @@ void VirtualStick::dealEvent(EngineEvent& e)
             if (!is_real)
             {
                 button_interval_[button_view_].interval = 100;
+            }
+        }
+        if (is_press && button_map_->state_ == NodePress)
+        {
+            e.type = EVENT_KEY_UP;
+            e.key.key = SDLK_M;
+            if (!is_real)
+            {
+                button_interval_[button_map_].interval = 100;
             }
         }
         if (is_press2)

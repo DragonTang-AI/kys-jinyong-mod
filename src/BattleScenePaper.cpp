@@ -208,7 +208,7 @@ void BattleScenePaper::draw()
                 }
             }
             info.p = r->Pos;
-            if (result_ == -1 && r->Shake)
+            if (result_ == -1 && r->Shake && GameUtil::getInstance()->getInt("game", "battle_shake", 1))
             {
                 info.p.x += -2.5 + rand_.rand() * 5;
             }
@@ -464,8 +464,11 @@ void BattleScenePaper::dealEvent(EngineEvent& e)
     //show_auto_->setVisible(r->Auto);
     if (shake_ > 0)
     {
-        x_ = rand_.rand_int(3) - rand_.rand_int(3);
-        y_ = rand_.rand_int(3) - rand_.rand_int(3);
+        if (GameUtil::getInstance()->getInt("game", "battle_shake", 1))
+        {
+            x_ = rand_.rand_int(3) - rand_.rand_int(3);
+            y_ = rand_.rand_int(3) - rand_.rand_int(3);
+        }
         shake_--;
     }
     if (frozen_ > 0)

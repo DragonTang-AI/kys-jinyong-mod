@@ -20,7 +20,7 @@ configs:
 
 settings:
   base:
-    DEVELOPMENT_TEAM: "" # 在本机填入你的 Team ID，或由 Xcode Signing 写入
+    DEVELOPMENT_TEAM: 6Q2EK738ZP # 在本机填入你的 Team ID，或由 Xcode Signing 写入
 
 targets:
   KYSCPP:

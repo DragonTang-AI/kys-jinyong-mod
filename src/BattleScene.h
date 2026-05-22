@@ -24,6 +24,7 @@ public:
     BattleScene(int id);
     virtual ~BattleScene();
     void setID(int id);
+    void setCustomBattleInfo(const BattleInfo& info);  // 设置自定义战斗信息
 
     //继承自基类的函数
     virtual void draw() override;
@@ -36,6 +37,8 @@ public:
 protected:
     int battle_id_ = 0;
     BattleInfo* info_;
+    BattleInfo custom_battle_info_;  // 自定义战斗信息（动态生成时使用）
+    bool has_custom_battle_info_ = false;  // 是否使用自定义战斗信息
 
     Save* save_;
 
@@ -155,7 +158,6 @@ public:
     virtual void actMedicine(Role* r);                     //医疗
     virtual void actUseHiddenWeapon(Role* r);              //暗器
     virtual void actUseDrug(Role* r);                      //吃药
-    virtual void actRage(Role* r);                         //怒气释放
     virtual void actWait(Role* r);                         //等待
     virtual void actStatus(Role* r);                       //状态
     virtual void actAuto(Role* r);                         //自动

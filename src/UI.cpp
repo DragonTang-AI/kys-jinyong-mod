@@ -1,4 +1,4 @@
-﻿#include "UI.h"
+#include "UI.h"
 #include "GameUtil.h"
 #include "Head.h"
 #include "Save.h"
@@ -14,9 +14,28 @@ UI::UI()
     button_system_ = std::make_shared<Button>();
     button_system_->setTexture("title", 125);
     button_system_->setAlpha(192);
+    // 商城标签按钮
+    button_shop_ = std::make_shared<Button>();
+    button_shop_->setText("商城");
+    button_shop_->setFontSize(18);
+    button_shop_->setAlpha(192);
+    // 对战标签按钮
+    button_battle_ = std::make_shared<Button>();
+    button_battle_->setText("对战");
+    button_battle_->setFontSize(18);
+    button_battle_->setAlpha(192);
+
     addChild(button_status_, 10, 10);
     addChild(button_item_, 90, 10);
     addChild(button_system_, 170, 10);
+    addChild(button_shop_, 250, 10);
+    addChild(button_battle_, 330, 10);
+    button_status_->setTag(0);
+    button_item_->setTag(1);
+    button_system_->setTag(2);
+    button_shop_->setTag(3);
+    button_battle_->setTag(4);
+    heads_ = std::make_shared<Menu>();
     heads_ = std::make_shared<Menu>();
     addChild(heads_);
     for (int i = 0; i < TEAMMATE_COUNT; i++)
@@ -28,17 +47,19 @@ UI::UI()
     heads_->getChild(0)->setState(NodePass);
 
     ui_index_ = getChildCount();    //UI的索引，方便在其他地方使用
-    //内容最后画，拖拽时显示在头像上方
     //注意，此处约定childs_[ui_index_]为子UI，创建好对应的指针，需要显示哪个赋值到childs_[ui_index_]即可
     ui_status_ = std::make_shared<UIStatus>();
     ui_item_ = std::make_shared<UIItem>();
     ui_system_ = std::make_shared<UISystem>();
+    ui_mall_ = std::make_shared<UIMall>();   // 商城面板
+    ui_free_battle_ = std::make_shared<UIFreeBattle>();  // 自由对战面板
     ui_status_->setPosition(300, 0);
     ui_item_->setPosition(300, 0);
     ui_system_->setPosition(300, 0);
+    ui_mall_->setPosition(300, 0);
+    ui_free_battle_->setPosition(300, 0);
     addChild(ui_status_);
 
-    //addChild(heads_);
     setIsDark(1);
     result_ = -1;    //非负：物品id，负数：其他情况，再定
 }
@@ -53,7 +74,6 @@ void UI::onEntrance()
 
 void UI::draw()
 {
-    //Engine::getInstance()->fillColor({ 0, 0, 0, 128 }, 0, 0, -1, -1);
 }
 
 void UI::dealEvent(EngineEvent& e)
@@ -84,7 +104,6 @@ void UI::dealEvent(EngineEvent& e)
                 if (role->Equip0 == item->ID || role->Equip1 == item->ID || role->PracticeItem == item->ID)
                 {
                     head->setText("使用中");
-                    //Font::getInstance()->draw("使用中", 25, x + 5, y + 60, { 255,255,255,255 });
                 }
                 if (role->canUseItem(item))
                 {
@@ -97,7 +116,6 @@ void UI::dealEvent(EngineEvent& e)
     //这里设定当前头像为Pass，令其不变暗，因为检测事件是先检测子节点，所以这里可以生效
     if (childs_[ui_index_] == ui_status_)
     {
-        //heads_->getChild(current_head_)->setState(NodePass);
     }
     childs_[current_button_]->setState(NodePass);
 
@@ -117,6 +135,12 @@ void UI::dealEvent(EngineEvent& e)
             case K_3:
                 cb = 2;
                 break;
+            case K_4:
+                cb = 3;
+                break;
+            case K_1 + 4:
+                cb = 4;
+                break;
             default:
                 break;
             }
@@ -124,12 +148,12 @@ void UI::dealEvent(EngineEvent& e)
 
         if (engine->gameControllerGetAxis(GAMEPAD_AXIS_LEFT_TRIGGER))
         {
-            cb = GameUtil::clamp(cb - 1, 0, 3);
+            cb = GameUtil::clamp(cb - 1, 0, 4);
             engine->setInterValControllerPress(200);
         }
         if (engine->gameControllerGetAxis(GAMEPAD_AXIS_RIGHT_TRIGGER))
         {
-            cb = GameUtil::clamp(cb + 1, 0, 3);
+            cb = GameUtil::clamp(cb + 1, 0, 4);
             engine->setInterValControllerPress(200);
         }
         if (cb != current_button_)
@@ -151,6 +175,16 @@ void UI::dealEvent(EngineEvent& e)
                 childs_[ui_index_] = ui_system_;
                 setAllChildState(NodeNormal);
                 button_system_->setState(NodePress);
+                break;
+            case 3:
+                childs_[ui_index_] = ui_mall_;
+                setAllChildState(NodeNormal);
+                button_shop_->setState(NodePress);
+                break;
+            case 4:
+                childs_[ui_index_] = ui_free_battle_;
+                setAllChildState(NodeNormal);
+                button_battle_->setState(NodePress);
                 break;
             default:
                 break;
@@ -240,5 +274,14 @@ void UI::onPressedOK()
         childs_[ui_index_] = ui_system_;
         current_button_ = button_system_->getTag();
     }
-    //current_button_ = childs_[0]->getTag();
+    if (button_shop_->getState() == NodePress)
+    {
+        childs_[ui_index_] = ui_mall_;
+        current_button_ = button_shop_->getTag();
+    }
+    if (button_battle_->getState() == NodePress)
+    {
+        childs_[ui_index_] = ui_free_battle_;
+        current_button_ = button_battle_->getTag();
+    }
 }

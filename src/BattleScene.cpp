@@ -58,6 +58,20 @@ BattleScene::~BattleScene()
     Audio::getInstance()->playMusic(prev_music_);
 }
 
+void BattleScene::setCustomBattleInfo(const BattleInfo& info)
+{
+    custom_battle_info_ = info;
+    has_custom_battle_info_ = true;
+    info_ = &custom_battle_info_;  // 关键：让readBattleInfo()使用自定义信息
+    // 加载战场背景（必须！否则黑屏）
+    BattleMap::getInstance()->copyLayerData(info_->BattleFieldID, 0, &earth_layer_);
+    BattleMap::getInstance()->copyLayerData(info_->BattleFieldID, 1, &building_layer_);
+    role_layer_.setAll(nullptr);
+    select_layer_.setAll(-1);
+    effect_layer_.setAll(-1);
+    LOG("BattleScene: 使用自定义战斗信息, BattleFieldID=%d\n", info_->BattleFieldID);
+}
+
 void BattleScene::setID(int id)
 {
     battle_id_ = id;
@@ -491,7 +505,22 @@ void BattleScene::readBattleInfo()
         }
         LOG("{}", battle_roles_.size());
         //判断是不是有自动战斗人物
-        if (info_->AutoTeamMate[0] >= 0)
+        if (has_custom_battle_info_)
+        {
+            // 自由对战：直接使用自定义信息中的我方角色（不弹出TeamMenu）
+            for (int i = 0; i < TEAMMATE_COUNT; i++)
+            {
+                if (info_->TeamMate[i] < 0) break;
+                auto r = Save::getInstance()->getRole(info_->TeamMate[i]);
+                if (r)
+                {
+                    friends_.push_back(r);
+                    r->Auto = 0;  // 玩家控制
+                }
+            }
+            LOG("FreeBattle: 直接加载 %d 名我方角色\n", (int)friends_.size());
+        }
+        else if (info_->AutoTeamMate[0] >= 0)
         {
             for (int i = 0; i < TEAMMATE_COUNT; i++)
             {
@@ -505,10 +534,18 @@ void BattleScene::readBattleInfo()
         }
         else
         {
+            // 随机遇敌：弹出队伍选择菜单
             auto team_menu = std::make_shared<TeamMenu>();
             team_menu->setMode(1);
+            team_menu->setForceMainRole(true);
             team_menu->run();
-            friends_ = team_menu->getRoles();
+            auto selected_roles = team_menu->getRoles();
+            LOG("TeamMenu::getRoles() returned {} roles:", selected_roles.size());
+            for (auto r : selected_roles)
+            {
+                LOG("  -> role: {} (Team={})", r ? r->Name.c_str() : "NULL", r ? r->Team : -1);
+                friends_.push_back(r);
+            }
         }
         //队友
         for (int i = 0; i < friends_.size(); i++)
@@ -521,6 +558,7 @@ void BattleScene::readBattleInfo()
                 r->Team = 0;
             }
         }
+        LOG("readBattleInfo: friends_.size()={}, battle_roles_.size()={}", friends_.size(), battle_roles_.size());
     }
 
     //视角转至第一个敌人
@@ -605,8 +643,10 @@ void BattleScene::setFaceTowardsNearest(Role* r, bool in_effect /*= false*/)
 
 void BattleScene::readFightFrame(Role* r)
 {
+    LOG("readFightFrame: r->Name={}, r->ID={}, r->HeadID={}, r->FightFrame[0]={}\n", r->Name, r->ID, r->HeadID, r->FightFrame[0]);
     if (r->FightFrame[0] >= 0)
     {
+        LOG("  -> FightFrame[0] already set, skipping\n");
         return;
     }
     for (int i = 0; i < 5; i++)
@@ -614,12 +654,25 @@ void BattleScene::readFightFrame(Role* r)
         r->FightFrame[i] = 0;
     }
     std::string text_group = std::format("fight/fight{:03}", r->HeadID);
-    std::string frame_txt = TextureManager::getInstance()->getTextureGroup(text_group)->getFileContent("fightframe.txt");
+    LOG("  -> Loading texture group: {}\n", text_group);
+    auto tg = TextureManager::getInstance()->getTextureGroup(text_group);
+    if (!tg) {
+        LOG("  -> ERROR: Texture group not found: {}\n", text_group);
+        return;
+    }
+    std::string frame_txt = tg->getFileContent("fightframe.txt");
+    LOG("  -> fightframe.txt loaded, length={}\n", frame_txt.length());
     std::vector<int> frames;
     strfunc::findNumbers(frame_txt, &frames);
+    LOG("  -> Parsed {} numbers from fightframe.txt\n", frames.size());
     for (int i = 0; i < frames.size() / 2; i++)
     {
-        r->FightFrame[frames[i * 2]] = frames[i * 2 + 1];
+        int action_idx = frames[i * 2];
+        if (action_idx >= 0 && action_idx < 5) {
+            r->FightFrame[action_idx] = frames[i * 2 + 1];
+        } else {
+            LOG("  -> WARNING: Invalid action index {} in fightframe.txt for {}\n", action_idx, r->Name);
+        }
     }
 }
 
@@ -649,11 +702,6 @@ void BattleScene::resetRolesAct()
         r->Moved = 0;
         r->ActType = -1;
         r->setPosition(r->X(), r->Y());
-        // 怒气冷却递减
-        if (r->RageCoolDown > 0)
-        {
-            r->RageCoolDown--;
-        }
     }
 }
 
@@ -1044,10 +1092,6 @@ void BattleScene::action(Role* r)
     {
         actUseDrug(r);
     }
-    else if (str == "怒氣")
-    {
-        actRage(r);
-    }
     else if (str == "等待")
     {
         actWait(r);
@@ -1256,22 +1300,8 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
                 animated_changes.emplace_back(battle_roles_[j]->HP, -battle_roles_[j]->Show.BattleHurt);
                 animated_changes.emplace_back(battle_roles_[j]->Progress, battle_roles_[j]->Show.ProgressChange);
 
-                // 受击者怒气 +5~15（根据受到的伤害）
-                int hurt_this = battle_roles_[j]->Show.BattleHurt;
-                if (hurt_this > 0 && battle_roles_[j]->Team != r->Team)
-                {
-                    int rage_gain = std::min(hurt_this / 10 + 5, 15);
-                    battle_roles_[j]->Rage = std::min(battle_roles_[j]->Rage + rage_gain, battle_roles_[j]->MaxRage);
-                }
             }
             showNumberAnimation(2, true, animated_changes);
-        }
-
-        // 攻击者怒气：根据总伤害增加 +3~8
-        if (total_damage_dealt > 0)
-        {
-            int rage_gain = std::min(total_damage_dealt / 20 + 3, 8);
-            r->Rage = std::min(r->Rage + rage_gain, r->MaxRage);
         }
     };
 }
@@ -1418,79 +1448,6 @@ void BattleScene::actUseHiddenWeapon(Role* r)
                 if (r2)
                 {
                     animated_changes.emplace_back(r2->HP, -r2->Show.BattleHurt);
-                    // 受击者怒气累计
-                    if (r2->Show.BattleHurt > 0 && r2->Team != r->Team)
-                    {
-                        int rage_gain = std::min(r2->Show.BattleHurt / 10 + 5, 15);
-                        r2->Rage = std::min(r2->Rage + rage_gain, r2->MaxRage);
-                    }
-                }
-                showNumberAnimation(2, true, animated_changes);
-                // 攻击者怒气
-                if (v > 0)
-                {
-                    int rage_gain = std::min(v / 20 + 3, 8);
-                    r->Rage = std::min(r->Rage + rage_gain, r->MaxRage);
-                }
-            };
-        }
-    }
-}
-
-void BattleScene::actRage(Role* r)
-{
-    // 怒气满时释放强力攻击：选择目标，造成3倍普通攻击伤害
-    if (r->Rage < r->MaxRage)
-    {
-        return;
-    }
-
-    calSelectLayer(r, 1, calActionStep(r->Speed));
-    battle_cursor_->setMode(BattleCursor::Action);
-    battle_cursor_->setRoleAndMagic(r);
-    r->ActTeam = 1;
-    int selected = battle_cursor_->run();
-    if (selected >= 0)
-    {
-        auto r2 = getSelectedRole();
-        if (r2)
-        {
-            // 计算3倍伤害（基于攻击力和魔法攻击）
-            int v = (r->Attack + 50) * 3 - r2->Defence;
-            if (v < 1) v = 1;
-            // 命中判定
-            int baseHitRate = 50 + (r->HitRate - r2->Dodge) * 5;
-            int hitChance = std::clamp(baseHitRate + (rand_.rand_int(21) - 10), 5, 95);
-            if (rand_.rand_int(100) < hitChance)
-            {
-                r2->Show.BattleHurt = v;
-                r2->addShowString(std::format("-{}", v), { 255, 50, 50, 255 });
-                r2->addShowString("怒氣爆發!", { 255, 200, 0, 255 });
-            }
-            else
-            {
-                r2->Show.BattleHurt = 0;
-                r2->addShowString("MISS", { 128, 128, 128, 255 });
-            }
-            r->PhysicalPower = GameUtil::clamp(r->PhysicalPower - 30, 0, Role::getMaxValue()->PhysicalPower);
-            r->Rage = 0;             // 释放后清零
-            r->RageCoolDown = 5;     // 5回合冷却
-            r->ExpGot += v;
-            r->Acted = 1;
-            actionAnimation_ = [this, r, r2]()
-            {
-                showMagicName("怒氣爆發!");
-                actionAnimation(r, 0, -1);
-                std::vector<std::pair<int&, int>> animated_changes;
-                if (r2)
-                {
-                    animated_changes.emplace_back(r2->HP, -r2->Show.BattleHurt);
-                    // 受击者怒气
-                    if (r2->Show.BattleHurt > 0 && r2->Team != r->Team)
-                    {
-                        int rage_gain = std::min(r2->Show.BattleHurt / 10 + 5, 15);
-                        r2->Rage = std::min(r2->Rage + rage_gain, r2->MaxRage);
-                    }
                 }
                 showNumberAnimation(2, true, animated_changes);
             };
@@ -2072,23 +2029,6 @@ void BattleScene::renderExtraRoleInfo(Role* r, int x, int y)
     //Engine::getInstance()->fillColor(outline_color, hp_x, hp_y, 1, hp_h);
     //Engine::getInstance()->fillColor(outline_color, hp_x + hp_max_w, hp_y, 1, hp_h);
 
-    // 怒气条（显示在生命条下方）
-    if (r->MaxRage > 0)
-    {
-        int rage_max_w = 24;
-        int rage_x = hp_x;
-        int rage_y = hp_y + hp_h + 1;
-        int rage_h = 3;
-        double rage_perc = (double)r->Rage / r->MaxRage;
-        if (rage_perc < 0) rage_perc = 0;
-        if (rage_perc > 1) rage_perc = 1;
-        Color rage_outline = { 0, 0, 0, 128 };
-        Color rage_color = { 255, 165, 0, 192 };  // 橙色怒气条
-        Rect r_rage0 = { rage_x, rage_y, rage_max_w, rage_h };
-        Engine::getInstance()->renderSquareTexture(&r_rage0, rage_outline, 128 * alpha);
-        Rect r_rage1 = { rage_x, rage_y, int(rage_perc * rage_max_w), rage_h };
-        Engine::getInstance()->renderSquareTexture(&r_rage1, rage_color, 192 * alpha);
-    }
 }
 
 void BattleScene::clearDead()

@@ -435,6 +435,32 @@ bool Event::askBattle()
 bool Event::tryBattle(int battle_id, int get_exp)
 {
     int result = 0;
+    // 打印本次战斗完整信息（用于识别不允许队友的战斗场景）
+    {
+        auto* bm = BattleMap::getInstance();
+        auto* info = bm->getBattleInfo(battle_id);
+        if (info)
+        {
+            LOG("===== tryBattle #{} '{}' =====\n", battle_id, info->Name);
+            // 队友配置（若全部-1说明不允许队友）
+            LOG("  TeamMate: ");
+            for (int i = 0; i < TEAMMATE_COUNT; i++) LOG("{} ", info->TeamMate[i]);
+            LOG("\n");
+            LOG("  AutoTeamMate: ");
+            for (int i = 0; i < TEAMMATE_COUNT; i++) LOG("{} ", info->AutoTeamMate[i]);
+            LOG("\n");
+            LOG("  Enemy: ");
+            for (int i = 0; i < BATTLE_ENEMY_COUNT; i++) if (info->Enemy[i] >= 0) LOG("#{}={} ", i, info->Enemy[i]);
+            LOG("\n  Exp={} BattleFieldID={}\n", info->Exp, info->BattleFieldID);
+            bool has_teammates = false;
+            for (int i = 0; i < TEAMMATE_COUNT; i++) if (info->TeamMate[i] >= 0) { has_teammates = true; break; }
+            LOG("  --> {}队友（{}）\n", has_teammates ? "允许" : "禁止", has_teammates ? "走TeamMenu" : "随机遇敌撞上会丢队友！");
+        }
+        else
+        {
+            LOG("===== tryBattle #{} (未知，BattleMap未找到) =====\n", battle_id);
+        }
+    }
     if (GameUtil::getInstance()->getInt("game", "battle_debug_win", 0) != 0)
     {
         clearTalkBox();
@@ -470,6 +496,54 @@ bool Event::tryBattle(int battle_id, int get_exp)
         //battle->setHaveFailExp(get_exp);
         result = battle->run();
     }
+    clearTalkBox();
+    return result == 0;
+}
+
+bool Event::tryBattleInfo(BattleInfo* battle_info, int get_exp)
+{
+    if (!battle_info)
+    {
+        LOG("tryBattle(BattleInfo*): battle_info is null!\n");
+        return false;
+    }
+    
+    int result = 0;
+    if (GameUtil::getInstance()->getInt("game", "battle_debug_win", 0) != 0)
+    {
+        clearTalkBox();
+        return true;
+    }
+    
+    int battle_mode = GameUtil::getInstance()->getInt("game", "battle_mode");
+    LOG("Battle mode: {} (動態戰鬥)\n", battle_mode);
+    
+    if (battle_mode == 0 || battle_mode == 1)
+    {
+        auto battle = std::make_shared<BattleScene>();
+        battle->setCustomBattleInfo(*battle_info);
+        battle->setHaveFailExp(get_exp);
+        result = battle->run();
+    }
+    else if (battle_mode == 2)
+    {
+        auto battle = std::make_shared<BattleSceneHades>();
+        battle->setCustomBattleInfo(*battle_info);
+        result = battle->run();
+    }
+    else if (battle_mode == 3)
+    {
+        auto battle = std::make_shared<BattleSceneSekiro>();
+        battle->setCustomBattleInfo(*battle_info);
+        result = battle->run();
+    }
+    else if (battle_mode == 4)
+    {
+        auto battle = std::make_shared<BattleScenePaper>();
+        battle->setCustomBattleInfo(*battle_info);
+        result = battle->run();
+    }
+    
     clearTalkBox();
     return result == 0;
 }

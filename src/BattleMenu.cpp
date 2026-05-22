@@ -9,7 +9,7 @@
 
 BattleActionMenu::BattleActionMenu(BattleScene* b)
 {
-    setStrings({ "移動", "武學", "用毒", "解毒", "醫療", "暗器", "藥品", "怒氣", "等待", "狀態", "自動", "結束" });
+    setStrings({ "移動", "武學", "用毒", "解毒", "醫療", "暗器", "藥品", "等待", "狀態", "自動", "結束" });
     distance_layer_.resize(BATTLEMAP_COORD_COUNT);
     battle_scene_ = b;
 }
@@ -61,12 +61,6 @@ void BattleActionMenu::setRole(Role* r)
     }
 
     childs_text_["等待"]->setVisible(false);    //禁用等待
-
-    // 怒气：满且冷却完毕时才显示
-    if (role_->Rage < role_->MaxRage || role_->RageCoolDown > 0 || role_->PhysicalPower < 30)
-    {
-        childs_text_["怒氣"]->setVisible(false);
-    }
 
     setFontSize(20);
     arrange(0, 0, 0, 28);

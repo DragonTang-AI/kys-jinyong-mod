@@ -13,6 +13,7 @@
 		0D22206E725DC2A3711F4C15 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D98785314C9BE40BB1DA127 /* libz.tbd */; };
 		0FA951AC89BB4CD3B44050A8 /* ScriptCifa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC573683A72C954635CC822 /* ScriptCifa.cpp */; };
 		13D5FFAAACAC692255E7DEC5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD659E8FCDA2A09A3889B344 /* CoreGraphics.framework */; };
+		15224F432A3BF6E38FA6A35A /* UIMall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C928DACDCC52BBDA93B3913 /* UIMall.cpp */; };
 		16AFB401ECEC09F81454C57E /* Weather.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F00E035E42E76BA086185525 /* Weather.cpp */; };
 		189263AD605FC5355B2A8291 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B57387634145158D732D0 /* AVFoundation.framework */; };
 		1DBE321D93B8C359CA339AF9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6665CB5ADB993ED3A209C82 /* CoreMedia.framework */; };
@@ -90,6 +91,7 @@
 		DD66B5D02F3512B5D46BC6C7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0B7DA4DFCDB3E69C30AF667 /* Point.cpp */; };
 		DF47CBFBA6ECD90007706115 /* ParticleExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF984290851D15149CC0961C /* ParticleExample.cpp */; };
 		DFDEA4D76E82E5A02F7CD3DF /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C22D5E2198803C1F344C104 /* Types.cpp */; };
+		E11A1640BD6151889C67F1A1 /* UIGameAssist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5E71AF1A6B4A8045723CB24 /* UIGameAssist.cpp */; };
 		E376C4D2B613A157DB87BB04 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F5552CAEB3287B15AD8B92 /* libsqlite3.tbd */; };
 		E81C0F322D33B81672F50E25 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7379FD3F03E441A920C79D1B /* Button.cpp */; };
 		EA0F19769A264DA258DC887D /* NewSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 412792B8C961BB6F07018CD2 /* NewSave.cpp */; };
@@ -104,6 +106,7 @@
 /* Begin PBXFileReference section */
 		09012C1624107E8E0633DA5B /* InputBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InputBox.cpp; sourceTree = "<group>"; };
 		0A71F622523774F520307F65 /* Hanz2Piny.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hanz2Piny.cpp; sourceTree = "<group>"; };
+		0C928DACDCC52BBDA93B3913 /* UIMall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIMall.cpp; sourceTree = "<group>"; };
 		0CC573683A72C954635CC822 /* ScriptCifa.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptCifa.cpp; sourceTree = "<group>"; };
 		118A5DCFE42AEB50979BAEB9 /* Audio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		11EECF69CB352F50ACC5319F /* ZipFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZipFile.cpp; sourceTree = "<group>"; };
@@ -118,7 +121,7 @@
 		21C579CDFB152826771DD9DD /* UIStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIStatus.cpp; sourceTree = "<group>"; };
 		264175762C7B4C94708D971A /* filefunc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = filefunc.cpp; sourceTree = "<group>"; };
 		2BCD11D383818BC10BF90A5A /* Talk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Talk.cpp; sourceTree = "<group>"; };
-		2EBD5B4FC0A699B18791330A /* KYSCPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KYSCPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EBD5B4FC0A699B18791330A /* KYSCPP.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KYSCPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3088F027B2819746F39EEC56 /* GrpIdxFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GrpIdxFile.cpp; sourceTree = "<group>"; };
 		312B57387634145158D732D0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3392A41B8AFDEEA8E6690953 /* BattleScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BattleScene.cpp; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 		F0B7DA4DFCDB3E69C30AF667 /* Point.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
 		F278F1AF6AF76D24E76FD71C /* game.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = game.zip; sourceTree = "<group>"; };
 		F436DF260EDE44E9AF6749F2 /* BattleSceneAct.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BattleSceneAct.cpp; sourceTree = "<group>"; };
+		F5E71AF1A6B4A8045723CB24 /* UIGameAssist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIGameAssist.cpp; sourceTree = "<group>"; };
 		F9A21746BB907944DB8DABCF /* UIItem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIItem.cpp; sourceTree = "<group>"; };
 		FF8A64275204302F555F5592 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -304,8 +308,10 @@
 				4C22D5E2198803C1F344C104 /* Types.cpp */,
 				5338D9A6CC33C080F0449DE1 /* UI.cpp */,
 				211DB93D628DAB1000852B54 /* UIConfig.cpp */,
+				F5E71AF1A6B4A8045723CB24 /* UIGameAssist.cpp */,
 				F9A21746BB907944DB8DABCF /* UIItem.cpp */,
 				73E1065042CDD02B974979C1 /* UIKeyConfig.cpp */,
+				0C928DACDCC52BBDA93B3913 /* UIMall.cpp */,
 				8FEF6882DF858C5479946924 /* UISave.cpp */,
 				1BB9E1A1A8B85C7E4E5B55B0 /* UIShop.cpp */,
 				21C579CDFB152826771DD9DD /* UIStatus.cpp */,
@@ -472,6 +478,11 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					5588EC1F9C38B09FB5F79461 = {
+						DevelopmentTeam = 6Q2EK738ZP;
+					};
+				};
 			};
 			buildConfigurationList = 89EB8391A5D76E016BC0A63C /* Build configuration list for PBXProject "KYSCPP" */;
 			developmentRegion = en;
@@ -565,8 +576,10 @@
 				DFDEA4D76E82E5A02F7CD3DF /* Types.cpp in Sources */,
 				9C2CF879C844261DF4CD373F /* UI.cpp in Sources */,
 				B1E1EFBD3B6FB8B9FC2BBABF /* UIConfig.cpp in Sources */,
+				E11A1640BD6151889C67F1A1 /* UIGameAssist.cpp in Sources */,
 				8B3C63E18672149E4CCDF974 /* UIItem.cpp in Sources */,
 				A85522F779A5D68210ACA5CB /* UIKeyConfig.cpp in Sources */,
+				15224F432A3BF6E38FA6A35A /* UIMall.cpp in Sources */,
 				5C85EE12F05534C718B42040 /* UISave.cpp in Sources */,
 				89640ABC7D74C61E2F5501FA /* UIShop.cpp in Sources */,
 				7A43D104EE51AD156FFCB6C5 /* UIStatus.cpp in Sources */,
@@ -619,7 +632,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6Q2EK738ZP;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -648,7 +661,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q2EK738ZP;
 				INFOPLIST_FILE = plist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -701,7 +713,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6Q2EK738ZP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -737,7 +749,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q2EK738ZP;
 				INFOPLIST_FILE = plist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

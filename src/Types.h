@@ -87,7 +87,7 @@ enum
     MAINMAP_COORD_COUNT = 480,
     SUBMAP_EVENT_COUNT = 200,    //单场景最大事件数
     ITEM_IN_BAG_COUNT = 1000,    //最大物品数
-    TEAMMATE_COUNT = 6,          //最大队伍人员数
+    TEAMMATE_COUNT = 50,         //最大队伍人员数 (Modified to 50 for 50v50 support)
 };
 
 enum
@@ -333,10 +333,6 @@ public:
     int Invincible = 0;     //无敌时间
     int Frozen = 0;         //静止时间
     int Shake = 0;          //震动时间
-
-    int Rage = 0;           //当前怒气值（战斗临时，战斗后清零）
-    int MaxRage = 100;      //最大怒气值
-    int RageCoolDown = 0;  //怒气技能冷却（回合数，0表示可用）
 
     int HaveAction = 0;        //开始行动
     int ActType = -1;          //医拳剑刀特

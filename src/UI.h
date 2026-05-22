@@ -1,10 +1,12 @@
-﻿#pragma once
+#pragma once
 #include "Head.h"
 #include "RunNode.h"
 #include "Types.h"
 #include "UIItem.h"
 #include "UIStatus.h"
 #include "UISystem.h"
+#include "UIMall.h"  // 商城界面
+#include "UIFreeBattle.h"  // 自由对战界面
 
 class UI : public RunNode
 {
@@ -32,10 +34,12 @@ public:
 
     std::shared_ptr<Menu> heads_;
 
-    std::shared_ptr<Button> button_status_, button_item_, button_system_;
+    std::shared_ptr<Button> button_status_, button_item_, button_system_, button_shop_, button_battle_;
     std::shared_ptr<UIStatus> ui_status_;
     std::shared_ptr<UIItem> ui_item_;
     std::shared_ptr<UISystem> ui_system_;
+    std::shared_ptr<UIMall> ui_mall_;
+    std::shared_ptr<UIFreeBattle> ui_free_battle_;
     int item_id_ = -1;
 
     void onPressedOK() override;

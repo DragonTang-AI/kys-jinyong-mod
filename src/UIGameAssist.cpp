@@ -60,6 +60,8 @@ UIGameAssist::UIGameAssist()
             {"0.5x", "1x", "2x", "4x"});
     // 自动战斗 — 开关
     addItem("自動戰鬥", "toggle", 0, 0, 1, 1, "cheat", "battle_auto", {});
+    // 震屏 — 开关
+    addItem("戰鬥震屏", "toggle", 1, 0, 1, 1, "game", "battle_shake", {});
 
     // 确认 / 取消 按钮（底部居中，左右排列）
     button_confirm_ = std::make_shared<Button>();

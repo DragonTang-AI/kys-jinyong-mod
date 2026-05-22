@@ -58,78 +58,6 @@ void clampRangeToBattles(int& lo, int& hi, int count)
 
 int randomBattleFromTier(int tier, int battle_count);
 
-int battleExpNonNeg(const BattleInfo* inf)
-{
-    if (!inf)
-    {
-        return 0;
-    }
-    return std::max(0, (int)inf->Exp);
-}
-
-void expBandForTier(int tier, int& emin, int& emax)
-{
-    auto* gu = GameUtil::getInstance();
-    emin = gu->getInt("mainmap_encounter", "tier0_exp_min", 0);
-    emax = gu->getInt("mainmap_encounter", "tier0_exp_max", 450);
-    if (tier == 1)
-    {
-        emin = gu->getInt("mainmap_encounter", "tier1_exp_min", 300);
-        emax = gu->getInt("mainmap_encounter", "tier1_exp_max", 900);
-    }
-    else if (tier == 2)
-    {
-        emin = gu->getInt("mainmap_encounter", "tier2_exp_min", 700);
-        emax = gu->getInt("mainmap_encounter", "tier2_exp_max", 1800);
-    }
-    else if (tier >= 3)
-    {
-        emin = gu->getInt("mainmap_encounter", "tier3_exp_min", 1400);
-        emax = gu->getInt("mainmap_encounter", "tier3_exp_max", 20000);
-    }
-    if (emax < emin)
-    {
-        std::swap(emin, emax);
-    }
-}
-
-int randomBattleFromExpBand(int tier, int battle_count)
-{
-    int emin = 0, emax = 0;
-    expBandForTier(tier, emin, emax);
-    std::vector<int> cand;
-    cand.reserve(size_t(battle_count));
-    for (int i = 0; i < battle_count; i++)
-    {
-        if (!battleRowHasEnemy(i))
-        {
-            continue;
-        }
-        auto* inf = BattleMap::getInstance()->getBattleInfo(i);
-        int e = battleExpNonNeg(inf);
-        if (e >= emin && e <= emax)
-        {
-            cand.push_back(i);
-        }
-    }
-    if (cand.empty())
-    {
-        return randomBattleFromTier(tier, battle_count);
-    }
-    RandomDouble r;
-    return cand[r.rand_int(int(cand.size()))];
-}
-
-int pickBattleForTier(int tier, int battle_count)
-{
-    auto* gu = GameUtil::getInstance();
-    if (gu->getInt("mainmap_encounter", "pick_mode", 0) == 1)
-    {
-        return randomBattleFromExpBand(tier, battle_count);
-    }
-    return randomBattleFromTier(tier, battle_count);
-}
-
 int randomBattleFromTier(int tier, int battle_count)
 {
     auto* gu = GameUtil::getInstance();
@@ -184,6 +112,7 @@ int regionTierFromSumXY(int sumxy)
     return 3;
 }
 
+
 void maybeMainMapRandomEncounter(MainScene* scene, int tile_x, int tile_y)
 {
     if (!scene)
@@ -213,7 +142,7 @@ void maybeMainMapRandomEncounter(MainScene* scene, int tile_x, int tile_y)
     {
         return;
     }
-    int bid = pickBattleForTier(tier, battle_count);
+    int bid = randomBattleFromTier(tier, battle_count);
     if (bid < 0)
     {
         return;

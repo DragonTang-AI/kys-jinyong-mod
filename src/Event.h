@@ -7,6 +7,9 @@
 #include "SubScene.h"
 #include "Talk.h"
 
+// Forward declaration
+struct BattleInfo;
+
 //event_id表示在kdef中的编号，event_index表示在场景中的编号
 
 class Event
@@ -83,6 +86,7 @@ public:
     bool isUsingItem(int item_id);
     bool askBattle();
     bool tryBattle(int battle_id, int get_exp);
+    bool tryBattleInfo(BattleInfo* battle_info, int get_exp);  // 动态战斗重载
     void changeMainMapMusic(int music_id);
     bool askJoin();
     void join(int role_id);
