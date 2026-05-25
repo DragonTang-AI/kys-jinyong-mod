@@ -18,7 +18,8 @@ enum class FreeBattleState : int {
     SelectEnemy = 1,      // 选择敌方角色
     SelectField = 2,      // 选择战场
     Ready = 3,            // 确认开战
-    BattleResult = 4      // 战斗结算
+    BattleResult = 4,     // 战斗结算
+    PreviewField = 5       // 预览战场地图
 };
 
 // 角色战斗统计
@@ -86,6 +87,17 @@ private:
 
     // 选中闪烁动画
     int select_flash_timer_ = 0;
+
+    // 等级调整功能
+    bool level_adjust_enabled_ = false;  // 是否启用等级调整
+    int target_level_ = 99;             // 目标等级（调整用）
+    bool show_level_adjust_ = false;     // 是否显示等级调整面板
+    bool level_panel_confirmed_ = false; // 等级面板是否已确认
+
+    // 地图预览功能
+    int preview_field_id_ = -1;          // 当前预览的战场ID
+    SDL_Texture* preview_texture_ = nullptr;  // 预览地图纹理
+    bool preview_loading_ = false;       // 是否正在加载预览图
 
     // 战斗结算
     int battle_winner_ = -1;       // 0=我方胜, 1=敌方胜

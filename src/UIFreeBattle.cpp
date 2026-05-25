@@ -153,6 +153,47 @@ void UIFreeBattle::draw()
         font->draw("上下選戰場 | 左右換頁 | Tab切換", 12, 10, sh - 18, { 150, 150, 150, 200 });
         break;
     }
+    case FreeBattleState::PreviewField:
+    {
+        int sw = Engine::getInstance()->getWindowWidth();
+        int sh = Engine::getInstance()->getWindowHeight();
+        auto font = Font::getInstance();
+        
+        // 半透明背景
+        Engine::getInstance()->fillColor({ 0, 0, 0, 220 }, 0, 0, sw, sh);
+        
+        // 标题
+        font->draw("地图预览", 24, sw / 2 - 60, 20, { 255, 215, 0, 255 });
+        
+        // 地图名称
+        std::string field_name = "战场 " + std::to_string(preview_field_id_ + 1);
+        font->draw(field_name, 20, sw / 2 - 50, 60, { 255, 255, 255, 255 });
+        
+        // 加载提示或显示地图
+        if (preview_loading_)
+        {
+            font->draw("正在加载地图...", 16, sw / 2 - 70, sh / 2, { 200, 200, 200, 255 });
+            preview_loading_ = false;
+        }
+        else if (preview_texture_)
+        {
+            // 显示地图纹理（缩放至合适大小）
+            int map_w = 512, map_h = 512;
+            int map_x = (sw - map_w) / 2;
+            int map_y = 100;
+            Engine::getInstance()->renderTexture(preview_texture_, map_x, map_y, map_w, map_h);
+        }
+        else
+        {
+            // 无预览图，显示占位符
+            Engine::getInstance()->fillColor({ 50, 50, 80, 255 }, sw / 2 - 256, 100, 512, 512);
+            font->draw("无预览图", 18, sw / 2 - 40, sh / 2, { 150, 150, 150, 255 });
+        }
+        
+        // 提示信息
+        font->draw("按 ESC 或 Enter 返回战场选择", 14, sw / 2 - 100, sh - 40, { 180, 180, 180, 200 });
+        break;
+    }
     case FreeBattleState::Ready:
     {
         int left_w = sw - getListWidth() - 30;
@@ -1292,6 +1333,14 @@ void UIFreeBattle::dealEvent(EngineEvent& e)
                 else showHint("請先選擇雙方角色");
                 break;
             }
+            case K_P:  // 预览地图
+            {
+                state_ = FreeBattleState::PreviewField;
+                preview_field_id_ = field_cursor_;
+                preview_loading_ = true;
+                playSelectSound();
+                break;
+            }
             case K_ESCAPE:
                 state_ = FreeBattleState::SelectEnemy;
                 playSelectSound();
@@ -1302,6 +1351,25 @@ void UIFreeBattle::dealEvent(EngineEvent& e)
         }
         break;
     }
+    
+    case FreeBattleState::PreviewField:
+    {
+        if (e.type == EVENT_KEY_UP)
+        {
+            switch (e.key.key)
+            {
+            case K_RETURN:
+            case K_ESCAPE:
+                state_ = FreeBattleState::SelectField;
+                playSelectSound();
+                break;
+            default:
+                break;
+            }
+        }
+        break;
+    }
+    
     case FreeBattleState::Ready:
     {
         if (e.type == EVENT_KEY_UP && e.key.key == K_RETURN)
