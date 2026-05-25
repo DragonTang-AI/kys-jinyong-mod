@@ -567,6 +567,20 @@ void BattleScene::readBattleInfo()
         man_x_ = battle_roles_[0]->X();
         man_y_ = battle_roles_[0]->Y();
     }
+
+    // 重置战斗统计（方案A）
+    for (auto r : battle_roles_)
+    {
+        if (r)
+        {
+            r->damage_dealt = 0;
+            r->damage_taken = 0;
+            r->kill_count = 0;
+            r->action_count = 0;
+            r->healing_done = 0;
+            r->poison_damage = 0;
+        }
+    }
 }
 
 void BattleScene::setRoleInitState(Role* r)
@@ -1045,6 +1059,7 @@ Role* BattleScene::getSelectedRole()
 
 void BattleScene::action(Role* r)
 {
+    r->action_count++;  // 更新行动次数统计（方案A）
     actionAnimation_ = nullptr;
 
     if (network_ && r->Team == 1)
@@ -1282,6 +1297,10 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
             if (s.BattleHurt > 0) total_damage_dealt += s.BattleHurt;
         }
     }
+
+    // 更新伤害统计（方案A）
+    r->damage_dealt += total_damage_dealt;
+
     actionAnimation_ = [this, r, magic, multi_shows, total_damage_dealt]() mutable
     {
         for (int i = 0; i < multi_shows.size(); i++)
@@ -1428,6 +1447,7 @@ void BattleScene::actUseHiddenWeapon(Role* r)
                         v = int(v * 1.5);
                     }
                     r2->Show.BattleHurt = v;
+                    r2->damage_taken += v;  // 更新受到伤害统计（方案A）
                     r2->addShowString(std::format("-{}", v), { 255, 20, 20, 255 });
                 }
                 else
@@ -1827,6 +1847,7 @@ int BattleScene::calMagiclHurtAllEnemies(Role* r, Magic* m, bool simulation, flo
             if (!simulation)
             {
                 r2->Show.BattleHurt = hurt;
+                r2->damage_taken += hurt;  // 更新受到伤害统计（方案A）
                 if (m->HurtType == 0)
                 {
                     auto temp = GameUtil::clamp(r2->Show.BattleHurt, -(r2->MaxHP - r2->HP), r2->HP);

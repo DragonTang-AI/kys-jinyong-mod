@@ -29,6 +29,7 @@ struct BattleRoleStats {
     int damage_dealt = 0;   // 造成伤害
     int damage_taken = 0;   // 受到伤害
     int heal_done = 0;      // 治疗量
+    int poison_damage = 0;  // 毒伤（方案A）
     int kill_count = 0;     // 击杀数
     int action_count = 0;   // 行动次数
     bool survived = false;  // 是否存活

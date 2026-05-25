@@ -322,6 +322,15 @@ public:
     bool Competing = false;
 
 public:
+    // 战斗统计字段（方案A）
+    int damage_dealt = 0;      // 造成的总伤害
+    int damage_taken = 0;      // 受到的总伤害
+    int kill_count = 0;         // 击杀数
+    int action_count = 0;       // 行动次数
+    int healing_done = 0;       // 治疗量
+    int poison_damage = 0;      // 毒伤
+
+public:
     Pointf Pos;            //亚像素的直角坐标
     Pointf RealTowards;    //面对的方向，计算攻击位置，击退方向等
     //以下用于一些被动移动的计算，例如闪身，击退等，主动移动可以直接修改坐标

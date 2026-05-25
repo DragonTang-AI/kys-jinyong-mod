@@ -800,12 +800,13 @@ void UIFreeBattle::collectBattleStats(BattleScene* scene)
         s.role_id = r->ID;
         s.name = r->Name;
         // TODO: 判断 team（需要区分我方/敌方）
-        s.team = 0;  // 暂时默认我方
-        s.damage_dealt = 0;       // TODO: 战斗中统计
-        s.damage_taken = 0;       // TODO: 战斗中统计
-        s.heal_done = 0;          // TODO: 战斗中统计
-        s.kill_count = 0;         // TODO: 战斗中统计
-        s.action_count = 0;        // TODO: 战斗中统计
+        s.team = r->Team;  // 0=我方，1=敌方
+        s.damage_dealt = r->damage_dealt;       // 造成伤害（方案A）
+        s.damage_taken = r->damage_taken;       // 受到伤害（方案A）
+        s.heal_done = r->healing_done;          // 治疗量（方案A）
+        s.poison_damage = r->poison_damage;     // 毒伤（方案A）
+        s.kill_count = r->kill_count;            // 击杀数（方案A）
+        s.action_count = r->action_count;        // 行动次数（方案A）
         s.survived = r->HP > 0;
         s.max_hp = r->MaxHP;
         s.final_hp = r->HP;

@@ -579,7 +579,9 @@ int Role::medicine(Role* r2)
     auto temp = r2->HP;
     r2->HP += Medicine;
     GameUtil::clamp_int(r2->HP, 0, r2->MaxHP);
-    return r2->HP - temp;
+    int healed = r2->HP - temp;
+    healing_done += healed;  // 更新治疗统计（方案A）
+    return healed;
 }
 
 //解毒
@@ -606,7 +608,9 @@ int Role::usePoison(Role* r2)
     auto temp = r2->Poison;
     r2->Poison += UsePoison / 3;
     GameUtil::clamp_int(r2->Poison, 0, Role::getMaxValue()->Poison);
-    return r2->Poison - temp;
+    int poison_added = r2->Poison - temp;
+    poison_damage += poison_added;  // 更新毒伤统计（方案A）
+    return poison_added;
 }
 
 void Role::setMaxValue()
