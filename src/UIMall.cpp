@@ -204,7 +204,7 @@ void UIMall::drawItemList(int x, int y) {
             Engine::getInstance()->fillColor({50, 45, 20, 180}, x, y + i * 28, 290, 26);
         }
 
-        std::string name = item->Name;
+        std::string name = PotConv::cp936toutf8(item->Name);
         if (name.size() > 12) name = name.substr(0, 12);
         std::string line = std::format("{:18}{:8}兩", name, price > 0 ? std::to_string(price) : "不可");
         font->draw(line, 20, x + 4, y + i * 28 + 4, c);
@@ -221,7 +221,7 @@ void UIMall::drawItemDetail(int x, int y) {
     if (selected_index_ < 0 || selected_index_ >= (int)category_items_.size()) return;
 
     Item* item = category_items_[selected_index_];
-    std::string name = item->Name;
+    std::string name = PotConv::cp936toutf8(item->Name);
     int price = calculateItemPrice(item);
 
     font->draw("名稱：" + name, 20, x, y, {255, 240, 180, 255});
@@ -359,7 +359,7 @@ void UIMall::onPressedOK() {
     // 獲得物品
     ::Event::getInstance()->addItemWithoutHint(item->ID, buy_count_);
 
-    std::string msg = std::format("購買成功！獲得 {} x{}", item->Name, buy_count_);
+    std::string msg = std::format("購買成功！獲得 {} x{}", PotConv::cp936toutf8(item->Name), buy_count_);
     showHint(msg, {100, 255, 100, 255}, 0);  // 绿色提示 + 成功音效
 
     refreshCategoryItems();
