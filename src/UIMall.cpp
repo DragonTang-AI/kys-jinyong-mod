@@ -59,10 +59,10 @@ int UIMall::getItemCategory(Item* item) {
         case 2: {
             std::string name = item->Name;
             // item->Name is CP936 encoded; convert search keywords to CP936 at runtime
-            if (name.find(PotConv::utf8tocp936("拳")) != std::string::npos) return (int)MallCategory::拳经;
-            if (name.find(PotConv::utf8tocp936("剑")) != std::string::npos) return (int)MallCategory::剑谱;
-            if (name.find(PotConv::utf8tocp936("刀")) != std::string::npos) return (int)MallCategory::刀录;
-            if (name.find(PotConv::utf8tocp936("心法")) != std::string::npos) return (int)MallCategory::心法;
+            if (name.find("拳") != std::string::npos) return (int)MallCategory::拳经;
+            if (name.find("剑") != std::string::npos) return (int)MallCategory::剑谱;
+            if (name.find("刀") != std::string::npos) return (int)MallCategory::刀录;
+            if (name.find("心法") != std::string::npos) return (int)MallCategory::心法;
             return (int)MallCategory::奇门;
         }
         case 3: return (int)MallCategory::丹药;
@@ -204,7 +204,7 @@ void UIMall::drawItemList(int x, int y) {
             Engine::getInstance()->fillColor({50, 45, 20, 180}, x, y + i * 28, 290, 26);
         }
 
-        std::string name = PotConv::cp936toutf8(item->Name);
+        std::string name = item->Name;
         if (name.size() > 12) name = name.substr(0, 12);
         std::string line = std::format("{:18}{:8}兩", name, price > 0 ? std::to_string(price) : "不可");
         font->draw(line, 20, x + 4, y + i * 28 + 4, c);
@@ -221,7 +221,7 @@ void UIMall::drawItemDetail(int x, int y) {
     if (selected_index_ < 0 || selected_index_ >= (int)category_items_.size()) return;
 
     Item* item = category_items_[selected_index_];
-    std::string name = PotConv::cp936toutf8(item->Name);
+    std::string name = item->Name;
     int price = calculateItemPrice(item);
 
     font->draw("名稱：" + name, 20, x, y, {255, 240, 180, 255});

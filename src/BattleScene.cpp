@@ -9,7 +9,7 @@
 #include "Menu.h"
 #include "Random.h"
 
-int BattleScene::animation_delay_ = 2;  // 战斗动画延迟，可被 g_battle_speed 覆盖
+int BattleScene::animation_delay_ = 2;  // 战斗动画延迟,可被 g_battle_speed 覆盖
 #include "Save.h"
 #include "ShowExp.h"
 #include "ShowRoleDifference.h"
@@ -62,8 +62,8 @@ void BattleScene::setCustomBattleInfo(const BattleInfo& info)
 {
     custom_battle_info_ = info;
     has_custom_battle_info_ = true;
-    info_ = &custom_battle_info_;  // 关键：让readBattleInfo()使用自定义信息
-    // 加载战场背景（必须！否则黑屏）
+    info_ = &custom_battle_info_;  // 关键:让readBattleInfo()使用自定义信息
+    // 加载战场背景(必须!否则黑屏)
     BattleMap::getInstance()->copyLayerData(info_->BattleFieldID, 0, &earth_layer_);
     BattleMap::getInstance()->copyLayerData(info_->BattleFieldID, 1, &building_layer_);
     role_layer_.setAll(nullptr);
@@ -90,7 +90,7 @@ void BattleScene::draw()
     Engine::getInstance()->setRenderTarget("scene");
     Engine::getInstance()->fillColor({ 0, 0, 0, 255 }, 0, 0, render_center_x_ * 2, render_center_y_ * 2);
 
-    //地面是否需要亮度的变化，自动人物或者选择位置部分没有运行
+    //地面是否需要亮度的变化,自动人物或者选择位置部分没有运行
     bool need_change_earth_color_ = battle_cursor_->isRunning() && !acting_role_->isAuto();
 
     //一整块地面
@@ -100,13 +100,13 @@ void BattleScene::draw()
         Color c = { 255, 255, 255, 255 };
         if (need_change_earth_color_)
         {
-            c = { 64, 64, 64, 255 };    //如果地面需要亮度变化，则以画最暗的为主
+            c = { 64, 64, 64, 255 };    //如果地面需要亮度变化,则以画最暗的为主
         }
         Engine::getInstance()->setColor(earth_texture, c);
         auto p = getPositionOnWholeEarth(man_x_, man_y_);
         int w = render_center_x_ * 2;
         int h = render_center_y_ * 2;
-        //获取的是中心位置，如贴图应减掉屏幕尺寸的一半
+        //获取的是中心位置,如贴图应减掉屏幕尺寸的一半
         Rect rect0 = { p.x - render_center_x_ - x_, p.y - render_center_y_ - y_, w, h }, rect1 = { 0, 0, w, h };
         if (rect0.x < 0)
         {
@@ -230,7 +230,7 @@ void BattleScene::draw()
             }
         }
     }
-    // 绘制敌人属性面板（Tab 切换）
+    // 绘制敌人属性面板(Tab 切换)
     if (show_enemy_info_) { drawEnemyInfoPanel(); }
 
     Engine::getInstance()->renderTextureToMain("scene");
@@ -272,7 +272,7 @@ void BattleScene::dealEvent(EngineEvent& e)
         //选择位于人物数组中的第一个人
         role = battle_roles_[0];
 
-        //若第一个人已经行动过，说明所有人都行动了，则清除行动状态，重排人物
+        //若第一个人已经行动过,说明所有人都行动了,则清除行动状态,重排人物
         if (role->Acted != 0)
         {
             resetRolesAct();
@@ -291,7 +291,7 @@ void BattleScene::dealEvent(EngineEvent& e)
                 break;
             }
         }
-        //无法选出人，增加所有人进度条，继续
+        //无法选出人,增加所有人进度条,继续
         if (role == nullptr)
         {
             for (auto r : battle_roles_)
@@ -305,14 +305,16 @@ void BattleScene::dealEvent(EngineEvent& e)
     acting_role_ = role;
 
     //定位
-    man_x_ = role->X();
-    man_y_ = role->Y();
+    if (camera_follow_) {
+        man_x_ = role->X();
+        man_y_ = role->Y();
+    }
     select_x_ = role->X();
     select_y_ = role->Y();
     head_self_->setRole(role);
     head_self_->setState(RunNode::NodePass);
 
-    //行动 — 自动战斗：若是我方角色且开启了自动战斗，跳过菜单直接 actAuto
+    //行动 - 自动战斗:若是我方角色且开启了自动战斗,跳过菜单直接 actAuto
     if (g_battle_auto && role->Team == 0)
     {
         actAuto(role);
@@ -322,7 +324,7 @@ void BattleScene::dealEvent(EngineEvent& e)
         action(role);
     }
 
-    //如果此人成功行动过，则放到队尾
+    //如果此人成功行动过,则放到队尾
     if (role->Acted)
     {
         if (semi_real_ == 0)
@@ -358,7 +360,7 @@ void BattleScene::dealEvent(EngineEvent& e)
 
 void BattleScene::dealEvent2(EngineEvent& e)
 {
-    // Tab 键：切换敌人属性面板
+    // Tab 键:切换敌人属性面板
     if (e.type == SDL_EVENT_KEY_DOWN && e.key.key == SDLK_TAB)
     {
         show_enemy_info_ = !show_enemy_info_;
@@ -368,7 +370,7 @@ void BattleScene::dealEvent2(EngineEvent& e)
     {
         for (auto r : battle_roles_)
         {
-            if (r->Team == 0 && r->Auto == 1)    //注意：auto为其他值的不能取消
+            if (r->Team == 0 && r->Auto == 1)    //注意:auto为其他值的不能取消
             {
                 r->Auto = 0;
             }
@@ -381,13 +383,13 @@ void BattleScene::onEntrance()
     calViewRegion();
 
     Audio::getInstance()->playMusic(info_->Music);
-    //注意此时才能得到窗口的大小，用来设置头像的位置
+    //注意此时才能得到窗口的大小,用来设置头像的位置
     head_self_->setPosition(80, 100);
 
     //RunElement::addOnRootTop(MainScene::getInstance()->getWeather());
     addChild(Weather::getInstance());
 
-    makeEarthTexture();    //先生成地面，可以减少一些画图次数，不使用
+    makeEarthTexture();    //先生成地面,可以减少一些画图次数,不使用
 
     readBattleInfo();
     //初始状态
@@ -416,7 +418,7 @@ void BattleScene::backRun()
     cloud_group_->setPositionOnScreen(man_x_, man_y_, render_center_x_, render_center_y_);
 }
 
-//读取战斗信息，确定是选人物还是自动人物
+//读取战斗信息,确定是选人物还是自动人物
 void BattleScene::readBattleInfo()
 {
     man_x_ = COORD_COUNT / 2;
@@ -431,14 +433,14 @@ void BattleScene::readBattleInfo()
         network_->getResults(seed, friends, sandBoxRoles);
         rand_.set_seed(seed + 1);
         Save::getInstance()->resetRData(sandBoxRoles);
-        //设置全部角色的位置层，避免今后出错
+        //设置全部角色的位置层,避免今后出错
         for (auto r : Save::getInstance()->getRoles())
         {
             r->setRolePositionLayer(&role_layer_);
             r->Team = 2;    //先全部设置成不存在的阵营
             r->Auto = 1;
         }
-        // 这里代码写的很差，不过先这样吧
+        // 这里代码写的很差,不过先这样吧
         if (network_->isHost())
         {
             // friends_占据前几个
@@ -448,7 +450,7 @@ void BattleScene::readBattleInfo()
                 setupRolePosition(r, 0, info_->TeamMateX[i], info_->TeamMateY[i]);
                 friends_.push_back(r);
             }
-            // 因为知道friends_大小，可得知几个敌人
+            // 因为知道friends_大小,可得知几个敌人
             for (int i = 0; i < sandBoxRoles.size() - friends; i++)
             {
                 auto r = Save::getInstance()->getRole(i + friends);
@@ -478,7 +480,11 @@ void BattleScene::readBattleInfo()
     else
     {
         // 正常战斗
-        //设置全部角色的位置层，避免今后出错
+        //设置全部角色的位置层,避免今后出错
+        // 自由对战:在敌人循环之前关闭摄像机跟随,避免摄像机被移到敌人位置
+        if (has_custom_battle_info_) {
+            camera_follow_ = false;
+        }
         for (auto r : Save::getInstance()->getRoles())
         {
             r->setRolePositionLayer(&role_layer_);
@@ -487,7 +493,7 @@ void BattleScene::readBattleInfo()
             r->Dead = 0;
         }
 
-        //首先设置位置和阵营，其他的后面统一处理
+        //首先设置位置和阵营,其他的后面统一处理
         //敌方
         for (int i = 0; i < BATTLE_ENEMY_COUNT; i++)
         {
@@ -499,15 +505,18 @@ void BattleScene::readBattleInfo()
                 r->Team = 1;
                 readFightFrame(r);
                 r->FaceTowards = rand_.rand_int(4);
-                man_x_ = r->X();
-                man_y_ = r->Y();
+                // 仅在普通随机遇敌时跟随最后一个敌人（自由对战中关闭了camera_follow_）
+                if (camera_follow_) {
+                    man_x_ = r->X();
+                    man_y_ = r->Y();
+                }
             }
         }
         LOG("{}", battle_roles_.size());
         //判断是不是有自动战斗人物
         if (has_custom_battle_info_)
         {
-            // 自由对战：直接使用自定义信息中的我方角色（不弹出TeamMenu）
+            // 自由对战:直接使用自定义信息中的我方角色(不弹出TeamMenu)
             for (int i = 0; i < TEAMMATE_COUNT; i++)
             {
                 if (info_->TeamMate[i] < 0) break;
@@ -534,7 +543,7 @@ void BattleScene::readBattleInfo()
         }
         else
         {
-            // 随机遇敌：弹出队伍选择菜单
+            // 随机遇敌:弹出队伍选择菜单
             auto team_menu = std::make_shared<TeamMenu>();
             team_menu->setMode(1);
             team_menu->setForceMainRole(true);
@@ -561,14 +570,14 @@ void BattleScene::readBattleInfo()
         LOG("readBattleInfo: friends_.size()={}, battle_roles_.size()={}", friends_.size(), battle_roles_.size());
     }
 
-    //视角转至第一个敌人
-    if (battle_roles_.size() > 0)
-    {
-        man_x_ = battle_roles_[0]->X();
-        man_y_ = battle_roles_[0]->Y();
+    // 自由对战：关闭摄像机跟随，并重置到地图中心（敌人循环可能把摄像机移走了）
+    if (has_custom_battle_info_) {
+        camera_follow_ = false;
+        man_x_ = COORD_COUNT / 2;
+        man_y_ = COORD_COUNT / 2;
     }
-
-    // 重置战斗统计（方案A）
+    
+    // 重置战斗统计(方案A)
     for (auto r : battle_roles_)
     {
         if (r)
@@ -613,7 +622,7 @@ void BattleScene::setRoleInitState(Role* r)
 
     if (network_ || r->Team == 1)
     {
-        // 联网，或者敌方都有回复状态的优待
+        // 联网,或者敌方都有回复状态的优待
         r->PhysicalPower = (std::max)(r->PhysicalPower, 90);
         r->HP = r->MaxHP;
         r->MP = r->MaxMP;
@@ -630,7 +639,7 @@ void BattleScene::setRoleInitState(Role* r)
 
 void BattleScene::setFaceTowardsNearest(Role* r, bool in_effect /*= false*/)
 {
-    //寻找离自己最近的敌方，设置面向
+    //寻找离自己最近的敌方,设置面向
     int min_distance = COORD_COUNT * COORD_COUNT;
     Role* r_near = nullptr;
     for (auto r1 : battle_roles_)
@@ -794,7 +803,7 @@ void BattleScene::calSelectLayer(int x, int y, int team, int mode, int step /*= 
             };
             for (auto p : cal_stack)
             {
-                //检测是否在敌方身旁，视情况打开此选项
+                //检测是否在敌方身旁,视情况打开此选项
                 if (!isNearEnemy(team, p.x, p.y) || (p.x == x && p.y == y))
                 {
                     //检测4个相邻点
@@ -806,12 +815,12 @@ void BattleScene::calSelectLayer(int x, int y, int team, int mode, int step /*= 
                 if (count >= COORD_COUNT * COORD_COUNT)
                 {
                     break;
-                }    //最多计算次数，避免死掉
+                }    //最多计算次数,避免死掉
             }
             if (cal_stack_next.size() == 0)
             {
                 break;
-            }    //无新的点，结束
+            }    //无新的点,结束
             cal_stack = cal_stack_next;
             step--;
         }
@@ -882,14 +891,14 @@ void BattleScene::calEffectLayer(int x, int y, int select_x, int select_y, Magic
 {
     effect_layer_.setAll(-1);
 
-    //若未指定武学，则认为只选择一个点
+    //若未指定武学,则认为只选择一个点
     if (m == nullptr || m->AttackAreaType == 0)
     {
         effect_layer_.data(select_x, select_y) = 0;
         return;
     }
 
-    //此处比较累赘，就这样吧
+    //此处比较累赘,就这样吧
     if (m->AttackAreaType == 1)
     {
         int tw = calTowards(x, y, select_x, select_y);
@@ -1044,9 +1053,9 @@ void BattleScene::calDistanceLayer(int x, int y, MapSquareInt& distance_layer, i
             if (count >= distance_layer.squareSize())
             {
                 break;
-            }    //最多计算次数，避免死掉
+            }    //最多计算次数,避免死掉
         }
-        if (cal_stack_next.size() == 0) { break; }    //无新的点，结束
+        if (cal_stack_next.size() == 0) { break; }    //无新的点,结束
         cal_stack = cal_stack_next;
         step++;
     }
@@ -1059,12 +1068,12 @@ Role* BattleScene::getSelectedRole()
 
 void BattleScene::action(Role* r)
 {
-    r->action_count++;  // 更新行动次数统计（方案A）
+    r->action_count++;  // 更新行动次数统计(方案A)
     actionAnimation_ = nullptr;
 
     if (network_ && r->Team == 1)
     {
-        // 网络连接，并且是对方行动
+        // 网络连接,并且是对方行动
         // 获取对方行动
         receiveAction(r);
         battle_menu_->setResult(r->Network_Action);
@@ -1078,7 +1087,7 @@ void BattleScene::action(Role* r)
     r->Network_Action = battle_menu_->getResult();
     std::string str = battle_menu_->getResultString();
 
-    //这里如果用整型表示返回，添加新项就太复杂了
+    //这里如果用整型表示返回,添加新项就太复杂了
     if (str == "移動")
     {
         actMove(r);
@@ -1126,13 +1135,13 @@ void BattleScene::action(Role* r)
         actRest(r);
     }
 
-    //下一个行动的，菜单项从第一个开始
+    //下一个行动的,菜单项从第一个开始
     if (r->Acted)
     {
         battle_menu_->setStartItem(0);
     }
 
-    // 己方行动，传输
+    // 己方行动,传输
     if (network_ && r->Team == 0)
     {
         sendAction(r);
@@ -1144,7 +1153,7 @@ void BattleScene::action(Role* r)
         actionAnimation_();
     }
 
-    // 播放完动画，清空显示
+    // 播放完动画,清空显示
     // 需要手动清理一下其他人的显示效果
     for (auto r : battle_roles_)
     {
@@ -1201,9 +1210,9 @@ void BattleScene::actUseMagic(Role* r)
         if (magic == nullptr)
         {
             break;
-        }    //可能是退出游戏，或者是没有选武功
+        }    //可能是退出游戏,或者是没有选武功
         r->ActTeam = 1;
-        //level_index表示从0到9，而level从0到999
+        //level_index表示从0到9,而level从0到999
         int level_index = r->getMagicLevelIndex(magic->ID);
         calSelectLayerByMagic(r->X(), r->Y(), r->Team, magic, level_index);
         //选择目标
@@ -1228,29 +1237,29 @@ void BattleScene::actUseMagic(Role* r)
 
 void BattleScene::actUseMagicSub(Role* r, Magic* magic)
 {
-    // 每次攻击，每个人的文字动画数据
+    // 每次攻击,每个人的文字动画数据
     std::vector<std::vector<Role::ActionShowInfo>> multi_shows;
-    
-    // 计算连击次数（仅物理攻击）
+
+    // 计算连击次数(仅物理攻击)
     int comboCount = 1;
     if (magic->HurtType == 0)  // 物理攻击
     {
         comboCount = calComboCount(r);
     }
-    
+
     // 记录连击信息用于显示
     r->Show.ComboCount = comboCount;
 
     for (int i = 0; i < comboCount; i++)
     {
         int level_index = r->getMagicLevelIndex(magic->ID);
-        //计算伤害，每击递减20%
+        //计算伤害,每击递减20%
         float damageRatio = std::pow(0.8f, i);
         r->PhysicalPower = GameUtil::clamp(r->PhysicalPower - 3, 0, Role::getMaxValue()->PhysicalPower);
         r->MP = GameUtil::clamp(r->MP - magic->calNeedMP(level_index), 0, r->MaxMP);
         calMagiclHurtAllEnemies(r, magic, false, damageRatio);
 
-        // 做显示部分，由于多次攻击，并且数据动画分离，需要分开保存显示信息
+        // 做显示部分,由于多次攻击,并且数据动画分离,需要分开保存显示信息
         multi_shows.emplace_back();
         for (auto r : battle_roles_)
         {
@@ -1268,7 +1277,7 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
                 else if (magic->HurtType == 1)
                 {
                     r->addShowString(std::format("-{}", r->Show.BattleHurt), { 160, 32, 240, 255 });
-                    // 吸内力不做渐变显示，麻烦
+                    // 吸内力不做渐变显示,麻烦
                     r->Show.BattleHurt = 0;
                 }
             }
@@ -1287,7 +1296,7 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
     }
     r->Acted = 1;
 
-    // multi_shows需要复制，因为已经离开此栈
+    // multi_shows需要复制,因为已经离开此栈
     // 统计总伤害用于怒气累计
     int total_damage_dealt = 0;
     for (auto& show : multi_shows)
@@ -1298,7 +1307,7 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
         }
     }
 
-    // 更新伤害统计（方案A）
+    // 更新伤害统计(方案A)
     r->damage_dealt += total_damage_dealt;
 
     actionAnimation_ = [this, r, magic, multi_shows, total_damage_dealt]() mutable
@@ -1315,7 +1324,7 @@ void BattleScene::actUseMagicSub(Role* r, Magic* magic)
             {
                 // 读取保存的文字动画数据
                 battle_roles_[j]->Show = multi_shows[i][j];
-                // 绑定，生命值和伤害值
+                // 绑定,生命值和伤害值
                 animated_changes.emplace_back(battle_roles_[j]->HP, -battle_roles_[j]->Show.BattleHurt);
                 animated_changes.emplace_back(battle_roles_[j]->Progress, battle_roles_[j]->Show.ProgressChange);
 
@@ -1411,7 +1420,7 @@ void BattleScene::actMedicine(Role* r)
 
 void BattleScene::actUseHiddenWeapon(Role* r)
 {
-    // 网络交流，不管物品
+    // 网络交流,不管物品
     auto item_menu = std::make_shared<BattleItemMenu>();
     item_menu->setRole(r);
     item_menu->setForceItemType({ 4 });
@@ -1430,13 +1439,13 @@ void BattleScene::actUseHiddenWeapon(Role* r)
             int v = 0;
             if (r2)
             {
-                // 命中判定（新公式）
+                // 命中判定(新公式)
                 // 基础命中率 = 50% + (HitRate - Dodge) * 5%
                 // 最终命中率 = clamp(基础命中率 + rand(-10, 10), 5, 95)
                 int baseHitRate = 50 + (r->HitRate - r2->Dodge) * 5;
                 int hitChance = std::clamp(baseHitRate + (rand_.rand_int(21) - 10), 5, 95);
                 bool hit = rand_.rand_int(100) < hitChance;
-                
+
                 if (hit)
                 {
                     v = calHiddenWeaponHurt(r, r2, item);
@@ -1447,7 +1456,7 @@ void BattleScene::actUseHiddenWeapon(Role* r)
                         v = int(v * 1.5);
                     }
                     r2->Show.BattleHurt = v;
-                    r2->damage_taken += v;  // 更新受到伤害统计（方案A）
+                    r2->damage_taken += v;  // 更新受到伤害统计(方案A)
                     r2->addShowString(std::format("-{}", v), { 255, 20, 20, 255 });
                 }
                 else
@@ -1477,7 +1486,7 @@ void BattleScene::actUseHiddenWeapon(Role* r)
 
 void BattleScene::actUseDrug(Role* r)
 {
-    // 网络交流，不管物品
+    // 网络交流,不管物品
     auto item_menu = std::make_shared<BattleItemMenu>();
     item_menu->setForceItemType({ 3 });
     item_menu->setRole(r);
@@ -1503,7 +1512,7 @@ void BattleScene::actUseDrug(Role* r)
 
 void BattleScene::actWait(Role* r)
 {
-    //等待，将自己插入到最后一个没行动的人的后面
+    //等待,将自己插入到最后一个没行动的人的后面
     for (int i = 1; i < battle_roles_.size(); i++)
     {
         if (battle_roles_[i]->Acted == 0)
@@ -1603,7 +1612,7 @@ void BattleScene::useMagicAnimation(Role* r, Magic* m)
 {
     if (r && m)
     {
-        Audio::getInstance()->playASound(m->SoundID);    //这里播放音效严格说不正确，不管了
+        Audio::getInstance()->playASound(m->SoundID);    //这里播放音效严格说不正确,不管了
         actionAnimation(r, m->MagicType, m->EffectID, r->Attack / 20);
     }
 }
@@ -1616,7 +1625,7 @@ void BattleScene::actionAnimation(Role* r, int style, int effect_id, int shake /
     }
     if (r->isAuto())
     {
-        //自动的情況下面向一个敌人，否则看着很奇怪
+        //自动的情況下面向一个敌人,否则看着很奇怪
         setFaceTowardsNearest(r, true);
     }
     auto frame_count = r->FightFrame[style];
@@ -1642,7 +1651,7 @@ void BattleScene::actionAnimation(Role* r, int style, int effect_id, int shake /
         }
     }
 
-    // 动作做到一半时，显示特效
+    // 动作做到一半时,显示特效
     int cycles = frame_count / 2 + effect_count + max_dis - min_dis + 1;
     r->ActFrame = 0;
     for (int i = 0; i < cycles; i++)
@@ -1652,7 +1661,7 @@ void BattleScene::actionAnimation(Role* r, int style, int effect_id, int shake /
         {
             r->ActFrame = frame_count - 1;
         }
-        // 如果有特效动画，抬手1帧后运行
+        // 如果有特效动画,抬手1帧后运行
         if (r->ActFrame == 1)
         {
             Audio::getInstance()->playASound(r->ActType);
@@ -1696,13 +1705,13 @@ void BattleScene::actionAnimation(Role* r, int style, int effect_id, int shake /
     y_ = 0;
 }
 
-// 计算连击等级（返回连击次数：1/2/3/5）
+// 计算连击等级(返回连击次数:1/2/3/5)
 int BattleScene::calComboCount(Role* r)
 {
     // 仅物理攻击触发连击
     // 连击率 = 基础5% + 敏捷/10 + 运气/20 + 装备加成
     int comboRate = 5 + r->Speed / 10 + r->IQ / 20;
-    
+
     // 装备加成
     if (r->Equip0 >= 0)
     {
@@ -1714,10 +1723,10 @@ int BattleScene::calComboCount(Role* r)
         auto i = Save::getInstance()->getItem(r->Equip1);
         comboRate += i->AddAttackTwice;
     }
-    
-    // 角色自身连击属性（如有）
+
+    // 角色自身连击属性(如有)
     comboRate += r->AttackTwice * 10;  // 每点 AttackTwice 加10%概率
-    
+
     // 根据连击率决定连击次数
     if (comboRate >= 80)
     {
@@ -1734,7 +1743,7 @@ int BattleScene::calComboCount(Role* r)
     return 1;  // 无连击
 }
 
-//r1使用武功magic攻击r2的伤害，结果为一正数
+//r1使用武功magic攻击r2的伤害,结果为一正数
 int BattleScene::calMagicHurt(Role* r1, Role* r2, Magic* magic, int dis)
 {
     int level_index = Save::getInstance()->getRoleLearnedMagicLevelIndex(r1, magic);
@@ -1801,22 +1810,22 @@ int BattleScene::calMagicHurt(Role* r1, Role* r2, Magic* magic, int dis)
     return 0;
 }
 
-//计算全部人物的伤害，comboDamageRatio 为连击伤害系数（0.8表示递减20%）
+//计算全部人物的伤害,comboDamageRatio 为连击伤害系数(0.8表示递减20%)
 int BattleScene::calMagiclHurtAllEnemies(Role* r, Magic* m, bool simulation, float comboDamageRatio)
 {
     int total = 0;
     for (auto r2 : battle_roles_)
     {
-        //非我方且被击中（即所在位置的效果层非负）
+        //非我方且被击中(即所在位置的效果层非负)
         if (r2->Team != r->Team && haveEffect(r2->X(), r2->Y()))
         {
-            // 命中判定（新公式）
+            // 命中判定(新公式)
             // 基础命中率 = 50% + (HitRate - Dodge) * 5%
             // 最终命中率 = clamp(基础命中率 + rand(-10, 10), 5, 95)
             int baseHitRate = 50 + (r->HitRate - r2->Dodge) * 5;
             int hitChance = std::clamp(baseHitRate + (rand_.rand_int(21) - 10), 5, 95);
             bool hit = rand_.rand_int(100) < hitChance;
-            
+
             int hurt = 0;
             if (hit)
             {
@@ -1827,7 +1836,7 @@ int BattleScene::calMagiclHurtAllEnemies(Role* r, Magic* m, bool simulation, flo
                     hurt = int(hurt * comboDamageRatio);
                     if (hurt < 1) hurt = 1;
                 }
-                // 暴击判定：使用 CriticalRate 属性（仅物理伤害）
+                // 暴击判定:使用 CriticalRate 属性(仅物理伤害)
                 if (!simulation && m->HurtType == 0 && hurt > 10 && rand_.rand_int(100) < r->CriticalRate)
                 {
                     r2->Show.IsCritical = true;
@@ -1847,7 +1856,7 @@ int BattleScene::calMagiclHurtAllEnemies(Role* r, Magic* m, bool simulation, flo
             if (!simulation)
             {
                 r2->Show.BattleHurt = hurt;
-                r2->damage_taken += hurt;  // 更新受到伤害统计（方案A）
+                r2->damage_taken += hurt;  // 更新受到伤害统计(方案A)
                 if (m->HurtType == 0)
                 {
                     auto temp = GameUtil::clamp(r2->Show.BattleHurt, -(r2->MaxHP - r2->HP), r2->HP);
@@ -1920,11 +1929,11 @@ void BattleScene::showMagicName(std::string name)
     magic_name->run();
 }
 
-//显示数字，同时显示打退进度条
-// delay: 延迟，默认2
+//显示数字,同时显示打退进度条
+// delay: 延迟,默认2
 // floating: 数字是否漂浮
 // std::vector<std::pair<int&, int>> 渐变
-// first为渐变对象，second为渐变数值
+// first为渐变对象,second为渐变数值
 void BattleScene::showNumberAnimation(int delay, bool floating, const std::vector<std::pair<int&, int>>& animated_changes)
 {
     //判断是否有需要显示的数字
@@ -1960,7 +1969,7 @@ void BattleScene::showNumberAnimation(int delay, bool floating, const std::vecto
             for (auto r : battle_roles_)
             {
                 auto p = getPositionOnWindow(r->X(), r->Y(), man_x_, man_y_);
-                // 有越界保护，直接显示就好了
+                // 有越界保护,直接显示就好了
                 if (r->Show.Effect != -1)
                 {
                     auto path = std::format("eft/eft{:03}", r->Show.Effect);
@@ -2002,7 +2011,7 @@ void BattleScene::showNumberAnimation(int delay, bool floating, const std::vecto
         drawAndPresent(delay, drawNumber);
     }
 
-    // 渐变不能被整除，所以加回来，再重新算
+    // 渐变不能被整除,所以加回来,再重新算
     for (auto& change : animated_changes)
     {
         change.first += change.second - total_frames * (change.second / total_frames);
@@ -2044,7 +2053,7 @@ void BattleScene::renderExtraRoleInfo(Role* r, int x, int y)
     Engine::getInstance()->renderSquareTexture(&r1, background_color, 192 * alpha);
 
     //Engine::getInstance()->fillColor(background_color, hp_x, hp_y, perc * hp_max_w, hp_h);
-    // 严禁吐槽，画框框
+    // 严禁吐槽,画框框
     //Engine::getInstance()->fillColor(outline_color, hp_x, hp_y, hp_max_w, 1);
     //Engine::getInstance()->fillColor(outline_color, hp_x, hp_y + hp_h, hp_max_w, 1);
     //Engine::getInstance()->fillColor(outline_color, hp_x, hp_y, 1, hp_h);
@@ -2069,7 +2078,7 @@ void BattleScene::clearDead()
         return;
     }
 
-    //退场动画，清理人物
+    //退场动画,清理人物
     while (dead_alpha_ > 0)
     {
         dead_alpha_ -= 25;
@@ -2128,10 +2137,10 @@ int BattleScene::getTeamMateCount(int team)
 }
 
 //检查是否有一方全灭
-//返回负值表示仍需持续，返回非负则为胜利方的team标记
+//返回负值表示仍需持续,返回非负则为胜利方的team标记
 //实际上只是检测我方人数与当前总人数是否相等或者为0
 //更复杂的判断请使用set或者map
-//0-我方胜，1-敌方胜，-1-胜负未分
+//0-我方胜,1-敌方胜,-1-胜负未分
 int BattleScene::checkResult()
 {
     int team0 = getTeamMateCount(0);
@@ -2189,7 +2198,7 @@ void BattleScene::calExpGot()
     show_exp->setRoles(alive_teammate);
     show_exp->run();
 
-    //升级，修炼物品
+    //升级,修炼物品
     auto diff = std::make_shared<ShowRoleDifference>();
     for (auto r : alive_teammate)
     {
@@ -2204,12 +2213,12 @@ void BattleScene::calExpGot()
 
         if (r->Level >= Role::getMaxValue()->Level)
         {
-            //已满级，全加到物品经验
+            //已满级,全加到物品经验
             r->ExpForItem += r->ExpGot;
         }
         else if (item)
         {
-            //未满级，平分经验
+            //未满级,平分经验
             r->Exp += r->ExpGot / 2;
             r->ExpForItem += r->ExpGot / 2;
         }
@@ -2305,7 +2314,7 @@ void BattleScene::setupRolePosition(Role* r, int team, int x, int y)
 
 void BattleScene::receiveAction(Role* r)
 {
-    // 如果是敌人，则获取敌人行动，假装敌人是个AI
+    // 如果是敌人,则获取敌人行动,假装敌人是个AI
     // 己方行动的时候也要同时记录AI
     BattleNetwork::SerializableBattleAction action;
     auto f = [](DrawableOnCall* d)
@@ -2329,7 +2338,7 @@ void BattleScene::receiveAction(Role* r)
             network_->getOpponentAction(action, exit);
         });
     waitThis->run();
-    // 这里返回后，就已经获得action
+    // 这里返回后,就已经获得action
     action.print();
     r->Network_Action = action.Action;
     r->Network_ActionX = action.ActionX;
@@ -2405,49 +2414,49 @@ void BattleScene::makeEarthTexture()
 
 void BattleScene::drawEnemyInfoPanel()
 {
-    // 绘制在 scene 纹理上（draw() 已设置渲染目标为 scene）
-    
-    // 统计敌人数量，计算面板高度
+    // 绘制在 scene 纹理上(draw() 已设置渲染目标为 scene)
+
+    // 统计敌人数量,计算面板高度
     int enemy_count = 0;
     for (auto r : battle_roles_) {
         if (r->Team != 0) { enemy_count++; }
     }
     if (enemy_count == 0) { return; }
-    
+
     int panel_x = 40;
     int panel_y = 80;
     int panel_w = 520;
     int panel_h = 50 + enemy_count * 145;
     if (panel_h > 500) { panel_h = 500; }
-    
+
     // 半透明背景
     Engine::getInstance()->fillColor({0, 0, 0, 170}, panel_x, panel_y, panel_w, panel_h);
-    
+
     // 标题
     Font::getInstance()->draw("敌人属性 (Tab 关闭)", 22, panel_x + 15, panel_y + 12, {255, 255, 100, 255});
-    
+
     // 绘制每个敌人属性
     int y = panel_y + 50;
     for (auto r : battle_roles_)
     {
         if (r->Team == 0) { continue; }
         if (y > panel_y + panel_h - 80) { break; }
-        
+
         // 敌人名字
         std::string name = r->Name;
         if (name.empty()) { name = "敌人"; }
-        
+
         // 属性文本
         std::string line1 = std::format("{}  Lv.{}", name, r->Level);
         std::string line2 = std::format("HP:  {}/{}", r->HP, r->MaxHP);
         std::string line3 = std::format("MP:  {}/{}", r->MP, r->MaxMP);
         std::string line4 = std::format("攻击: {}  防御: {}  速度: {}", r->Attack, r->Defence, r->Speed);
-        
+
         Font::getInstance()->draw(line1, 16, panel_x + 15, y, {255, 220, 180, 255});
         Font::getInstance()->draw(line2, 14, panel_x + 15, y + 24, {180, 255, 180, 255});
         Font::getInstance()->draw(line3, 14, panel_x + 200, y + 24, {180, 180, 255, 255});
         Font::getInstance()->draw(line4, 14, panel_x + 15, y + 46, {220, 220, 220, 255});
-        
+
         y += 145;
     }
 }

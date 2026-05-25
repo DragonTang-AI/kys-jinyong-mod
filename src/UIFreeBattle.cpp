@@ -16,7 +16,7 @@ UIFreeBattle::UIFreeBattle()
 {
     auto& roles = Save::getInstance()->getRoles();
     all_roles_.assign(roles.begin(), roles.end());
-    battle_field_count_ = BattleMap::getInstance()->getBattleInfoCount();
+    battle_field_count_ = BattleMap::getInstance()->getBattleFieldCount();
     memset(friendly_ids_, -1, sizeof(friendly_ids_));
     memset(enemy_ids_, -1, sizeof(enemy_ids_));
     field_cursor_ = 0;
@@ -26,7 +26,7 @@ void UIFreeBattle::onEntrance()
 {
     auto& roles = Save::getInstance()->getRoles();
     all_roles_.assign(roles.begin(), roles.end());
-    battle_field_count_ = BattleMap::getInstance()->getBattleInfoCount();
+    battle_field_count_ = BattleMap::getInstance()->getBattleFieldCount();
     hint_timer_ = 0;
     search_text_.clear();
     search_active_ = false;
@@ -105,7 +105,8 @@ void UIFreeBattle::draw()
 
         // 计算布局
         int list_w = getListWidth();
-        int detail_w = std::max(400, sw - list_w - 480);   // 详情面板加宽
+        int detail_w = 380;
+        int teamlist_w = 220;
         int panel_h = content_h;
         int left_w = sw - list_w - detail_w - 30;
 
@@ -115,6 +116,10 @@ void UIFreeBattle::draw()
         if (role_cursor_ >= 0 && role_cursor_ < (int)filtered.size())
             selected = filtered[role_cursor_];
         drawRoleDetail(10 + left_w + 10, content_y, detail_w, panel_h, selected, team_color);
+
+        // 左侧：已选阵容实时列表
+        drawSelectedTeamCompact(10, content_y, left_w, panel_h, friendly_ids_, friendly_count_, TEAMMATE_COUNT, "我方", { 100, 200, 255, 255 });
+        drawSelectedTeamCompact(10, content_y + panel_h / 2 + 10, left_w, panel_h / 2 - 10, enemy_ids_, enemy_count_, BATTLE_ENEMY_COUNT, "敵方", { 255, 100, 100, 255 });
 
         // 右侧：角色列表
         drawRoleList(sw - list_w - 10, content_y, list_w, content_h, filtered);
@@ -155,13 +160,8 @@ void UIFreeBattle::draw()
         drawSelectedTeam(10, content_y + 220, left_w, enemy_ids_, enemy_count_, BATTLE_ENEMY_COUNT, "敵方陣營", { 255, 100, 100, 255 });
 
         // 战场信息
-        auto* bm = BattleMap::getInstance();
-        auto* info = bm->getBattleInfo(field_cursor_);
-        if (info)
-        {
-            std::string field_name = "戰場: " + PotConv::cp950toutf8(info->Name);
-            font->draw(field_name, 20, 10, content_y + 440, { 255, 215, 0, 255 });
-        }
+        std::string field_name = "戰場: 戰場 " + std::to_string(field_cursor_ + 1) + " / " + std::to_string(battle_field_count_);
+        font->draw(field_name, 20, 10, content_y + 440, { 255, 215, 0, 255 });
 
         // 开战按钮（闪烁）
         int alpha = 180 + 75 * sin(select_flash_timer_ * 0.08);
@@ -480,42 +480,46 @@ void UIFreeBattle::startBattle()
     if (friendly_count_ == 0) { showHint("請選擇我方角色"); return; }
     if (enemy_count_ == 0) { showHint("請選擇敵方角色"); return; }
 
-    // 从选中的战斗配置获取 BattleFieldID（并做边界检查）
-    BattleInfo* selected_battle = BattleMap::getInstance()->getBattleInfo(field_cursor_);
-    int battle_field_id = 0;  // 默认使用第一个战场地图
-    if (selected_battle)
-    {
-        battle_field_id = selected_battle->BattleFieldID;
-        // warfld.grp 只有 13 个战场（ID 0-12），超出范围的 clamp 到有效范围
-        if (battle_field_id < 0 || battle_field_id > 12)
-        {
-            battle_field_id = std::clamp(battle_field_id, 0, 12);
-            LOG("UIFreeBattle: BattleFieldID %d 超出范围，clamp 到 %d\n", selected_battle->BattleFieldID, battle_field_id);
-        }
-    }
+    // 使用选中的战场索引作为 BattleFieldID（已在 battle_field_count_ 范围内）
+    int battle_field_id = field_cursor_;
 
     // 填充 BattleInfo
     BattleInfo info;
     memset(&info, 0, sizeof(BattleInfo));
-    // 初始化为空位（-1）
-    for (int i = 0; i < 10; i++) info.TeamMate[i] = -1;
-    for (int i = 0; i < 20; i++) info.Enemy[i] = -1;
+    // 初始化为空位（-1），使用 50v50 实际数组大小
+    for (int i = 0; i < TEAMMATE_COUNT; i++) { info.TeamMate[i] = -1; info.TeamMateX[i] = -1; info.TeamMateY[i] = -1; }
+    for (int i = 0; i < BATTLE_ENEMY_COUNT; i++) { info.Enemy[i] = -1; info.EnemyX[i] = -1; info.EnemyY[i] = -1; }
     info.BattleFieldID = battle_field_id;
 
-    // 复用原版战斗场景的站位坐标（从 war.sta 读取）
-    if (selected_battle)
+    // 布局角色初始位置到地图中央区域（64×64 地图）
+    const int MAP_C = BATTLEMAP_COORD_COUNT;  // 64
+    const int CENTER_X = MAP_C / 2, CENTER_Y = MAP_C / 2;  // 32,32
+    // 我方：中央偏左区域，网格排布
+    if (friendly_count_ > 0)
     {
-        // 复制我方坐标（10个槽位）
-        for (int i = 0; i < 10; i++)
+        int fc = std::min(friendly_count_, 5);   // 最多5列
+        int fr = (friendly_count_ + fc - 1) / fc; // 行数
+        int start_x = CENTER_X - (fc * 3) / 2 - 2;  // 中心偏左
+        int start_y = CENTER_Y - (fr * 3) / 2;     // 垂直居中
+        for (int i = 0; i < friendly_count_ && i < TEAMMATE_COUNT; i++)
         {
-            info.TeamMateX[i] = selected_battle->TeamMateX[i];
-            info.TeamMateY[i] = selected_battle->TeamMateY[i];
+            int row = i / fc, col = i % fc;
+            info.TeamMateX[i] = start_x + col * 3;
+            info.TeamMateY[i] = start_y + row * 3;
         }
-        // 复制敌方坐标（20个槽位）
-        for (int i = 0; i < 20; i++)
+    }
+    // 敌方：中央偏右区域，网格排布
+    if (enemy_count_ > 0)
+    {
+        int ec = std::min(enemy_count_, 6);   // 最多6列
+        int er = (enemy_count_ + ec - 1) / ec; // 行数
+        int start_x = CENTER_X + 6;             // 中心偏右，留间隔
+        int start_y = CENTER_Y - (er * 3) / 2;  // 垂直居中
+        for (int i = 0; i < enemy_count_ && i < BATTLE_ENEMY_COUNT; i++)
         {
-            info.EnemyX[i] = selected_battle->EnemyX[i];
-            info.EnemyY[i] = selected_battle->EnemyY[i];
+            int row = i / ec, col = i % ec;
+            info.EnemyX[i] = start_x + col * 3;
+            info.EnemyY[i] = start_y + row * 3;
         }
     }
 
@@ -636,6 +640,8 @@ void UIFreeBattle::drawRoleList(int x, int y, int w, int h, const std::vector<Ro
 
 // ==================== 阵容面板 ====================
 
+// ==================== 阵容面板（完整版）====================
+
 void UIFreeBattle::drawSelectedTeam(int x, int y, int w, int* ids, int count, int max_count, const std::string& title, Color color)
 {
     auto font = Font::getInstance();
@@ -664,6 +670,52 @@ void UIFreeBattle::drawSelectedTeam(int x, int y, int w, int* ids, int count, in
         else
         {
             font->draw("---", 13, x + 8, ry, { 80, 80, 80, 150 });
+        }
+    }
+}
+
+// ==================== 阵容面板（紧凑版，用于选择界面左侧）====================
+
+void UIFreeBattle::drawSelectedTeamCompact(int x, int y, int w, int h, int* ids, int count, int max_count, const std::string& title, Color color)
+{
+    auto font = Font::getInstance();
+    Engine::getInstance()->fillColor({ 20, 20, 35, 220 }, x, y, w, h);
+    Engine::getInstance()->fillColor(color, x, y, w, 1);
+    Engine::getInstance()->fillColor(color, x, y + h - 1, w, 1);
+    Engine::getInstance()->fillColor(color, x, y, 1, h);
+    Engine::getInstance()->fillColor(color, x + w - 1, y, 1, h);
+
+    // 标题栏
+    font->draw(title, 15, x + 8, y + 8, color);
+    std::string cnt = std::to_string(count) + "/" + std::to_string(max_count);
+    font->draw(cnt, 13, x + w - 60, y + 8, { 180, 180, 180, 255 });
+    Engine::getInstance()->fillColor(color, x, y + 28, w, 1);
+
+    if (count == 0)
+    {
+        font->draw("(未選擇)", 13, x + 8, y + 38, { 100, 100, 100, 180 });
+        return;
+    }
+
+    int row_h = 18;
+    int max_rows = (h - 36) / row_h;
+    for (int i = 0; i < count && i < max_rows; i++)
+    {
+        int ry = y + 36 + i * row_h;
+        Role* r = Save::getInstance()->getRole(ids[i]);
+        if (r)
+        {
+            std::string name = std::string(r->Name).substr(0, 10);
+            bool highlight = false;
+            if (state_ == FreeBattleState::SelectFriendly)
+            {
+                auto filtered = getFilteredRoles();
+                if (role_cursor_ >= 0 && role_cursor_ < (int)filtered.size() && filtered[role_cursor_]->ID == r->ID)
+                    highlight = true;
+            }
+            Color name_color = highlight ? Color{ 255, 255, 100, 255 } : Color{ 200, 200, 200, 255 };
+            font->draw(name, 13, x + 8, ry, name_color);
+            font->draw(std::to_string(r->HP) + "/" + std::to_string(r->MaxHP), 11, x + w - 80, ry, { 255, 100, 100, 255 });
         }
     }
 }
@@ -698,8 +750,7 @@ void UIFreeBattle::drawBattleFieldList(int x, int y, int w, int h)
                 Engine::getInstance()->fillColor({ 40, 40, 80, 180 }, x + 2, ry, w - 4, row_h - 2);
         }
 
-        auto* info = BattleMap::getInstance()->getBattleInfo(i);
-        std::string name = info ? PotConv::cp950toutf8(info->Name) : "(未知戰場)";
+        std::string name = "戰場 " + std::to_string(i + 1);
         Color name_color = is_selected ? (flash ? Color{ 255, 255, 100, 255 } : Color{ 255, 220, 100, 255 }) : Color{ 210, 210, 210, 255 };
         font->draw(name, 14, x + 8, ry + 6, name_color);
     }
@@ -1150,9 +1201,42 @@ void UIFreeBattle::dealEvent(EngineEvent& e)
                 break;
             case K_RETURN:
             case K_SPACE:
-                if (state_ == FreeBattleState::SelectFriendly) addFriendly(role_cursor_);
-                else addEnemy(role_cursor_);
+            {
+                auto filtered = getFilteredRoles();
+                if (role_cursor_ >= 0 && role_cursor_ < (int)filtered.size())
+                {
+                    Role* r = filtered[role_cursor_];
+                    if (r)
+                    {
+                        int rid = r->ID;
+                        int* ids = (state_ == FreeBattleState::SelectFriendly) ? friendly_ids_ : enemy_ids_;
+                        int& count = (state_ == FreeBattleState::SelectFriendly) ? friendly_count_ : enemy_count_;
+                        int found_idx = -1;
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (ids[i] == rid) { found_idx = i; break; }
+                        }
+                        if (found_idx >= 0)
+                        {
+                            // 已在队伍中 → 移除
+                            if (state_ == FreeBattleState::SelectFriendly)
+                                removeFriendly(found_idx);
+                            else
+                                removeEnemy(found_idx);
+                            showHint("已移除: " + std::string(r->Name));
+                        }
+                        else
+                        {
+                            // 不在队伍中 → 添加
+                            if (state_ == FreeBattleState::SelectFriendly)
+                                addFriendly(role_cursor_);
+                            else
+                                addEnemy(role_cursor_);
+                        }
+                    }
+                }
                 break;
+            }
             case K_DELETE:
             case K_BACKSPACE:
                 if (state_ == FreeBattleState::SelectFriendly && friendly_count_ > 0)

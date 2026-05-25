@@ -43,6 +43,7 @@ public:
     }
     BattleInfo* getBattleInfo(int i) { if (i < 0 || i >= battle_infos_.size()) { return nullptr; } return &battle_infos_[i]; }
     int getBattleInfoCount() const { return int(battle_infos_.size()); }
+    int getBattleFieldCount() const;  // 返回实际地图数量（warfld.grp 条目数，可能小于 war.sta 条目数）
     void copyLayerData(int battle_field_id, int layer, MapSquareInt* out);
 
 };

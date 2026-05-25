@@ -116,6 +116,7 @@ private:
     void drawRoleList(int x, int y, int w, int h, const std::vector<Role*>& roles);
     void drawRoleDetail(int x, int y, int w, int h, Role* role, Color team_color);
     void drawSelectedTeam(int x, int y, int w, int* ids, int count, int max_count, const std::string& title, Color color);
+    void drawSelectedTeamCompact(int x, int y, int w, int h, int* ids, int count, int max_count, const std::string& title, Color color);
     void drawBattleFieldList(int x, int y, int w, int h);
     void drawHint();
     void drawPagination(int x, int y, int page, int total_pages);

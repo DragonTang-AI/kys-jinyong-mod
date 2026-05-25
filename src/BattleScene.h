@@ -39,6 +39,7 @@ protected:
     BattleInfo* info_;
     BattleInfo custom_battle_info_;  // 自定义战斗信息（动态生成时使用）
     bool has_custom_battle_info_ = false;  // 是否使用自定义战斗信息
+    bool camera_follow_ = true;              // 战斗中是否跟随当前行动角色（自由对战关闭）
 
     Save* save_;
 

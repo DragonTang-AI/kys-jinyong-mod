@@ -445,6 +445,25 @@ void Save::saveRToDB(SQLite3Wrapper& db)
 void Save::loadRFromDB(SQLite3Wrapper& db)
 {
     NewSave::LoadDBBaseInfo(db, (BaseInfo*)this, 1);
+
+    // 清理 Team 数组中的重复条目，避免队伍选择界面显示重复角色
+    {
+        bool seen[TEAMMATE_COUNT] = {false};
+        int write = 0;
+        for (int i = 0; i < TEAMMATE_COUNT; i++) {
+            if (Team[i] < 0) break;
+            bool duplicate = false;
+            for (int j = 0; j < write; j++) {
+                if (Team[j] == Team[i]) { duplicate = true; break; }
+            }
+            if (!duplicate) {
+                if (write != i) Team[write] = Team[i];
+                write++;
+            }
+        }
+        for (int i = write; i < TEAMMATE_COUNT; i++) Team[i] = -1;
+    }
+
     NewSave::LoadDBItemList(db, Items, ITEM_IN_BAG_COUNT);
     NewSave::LoadDBRoleSave(db, roles_mem_);
     NewSave::LoadDBItemSave(db, items_mem_);
