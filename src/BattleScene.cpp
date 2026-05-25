@@ -360,6 +360,57 @@ void BattleScene::dealEvent(EngineEvent& e)
 
 void BattleScene::dealEvent2(EngineEvent& e)
 {
+    // ====== 摄像机手动控制（WSAD/方向键 + 鼠标右键拖动）======
+
+    // 键盘移动摄像机（WSAD 或方向键）
+    if (e.type == SDL_EVENT_KEY_DOWN)
+    {
+        // 临时关闭跟随，让手动控制生效
+        camera_follow_ = false;
+        switch (e.key.key)
+        {
+            case SDLK_W: case SDLK_UP:    man_y_ -= CAMERA_MOVE_SPEED; break;
+            case SDLK_S: case SDLK_DOWN:  man_y_ += CAMERA_MOVE_SPEED; break;
+            case SDLK_A: case SDLK_LEFT:  man_x_ -= CAMERA_MOVE_SPEED; break;
+            case SDLK_D: case SDLK_RIGHT: man_x_ += CAMERA_MOVE_SPEED; break;
+            default: break;
+        }
+        // 边界限制
+        if (man_x_ < 0) man_x_ = 0;
+        if (man_x_ >= COORD_COUNT) man_x_ = COORD_COUNT - 1;
+        if (man_y_ < 0) man_y_ = 0;
+        if (man_y_ >= COORD_COUNT) man_y_ = COORD_COUNT - 1;
+    }
+
+    // 鼠标右键拖动摄像机
+    if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_RIGHT)
+    {
+        camera_follow_ = false;  // 关闭自动跟随
+        camera_drag_start_x_ = e.button.x;
+        camera_drag_start_y_ = e.button.y;
+        camera_drag_man_x_ = man_x_;
+        camera_drag_man_y_ = man_y_;
+    }
+    if (e.type == SDL_EVENT_MOUSE_MOTION && camera_drag_start_x_ >= 0)
+    {
+        // 计算鼠标偏移，映射到地图坐标（反向：鼠标右移=地图左移=man_x减小）
+        int dx = e.motion.x - camera_drag_start_x_;
+        int dy = e.motion.y - camera_drag_start_y_;
+        // 像素到格子的粗略转换（TILE_W=18, TILE_H=9）
+        man_x_ = camera_drag_man_x_ - dx / TILE_W;
+        man_y_ = camera_drag_man_y_ - dy / TILE_H;
+        // 边界限制
+        if (man_x_ < 0) man_x_ = 0;
+        if (man_x_ >= COORD_COUNT) man_x_ = COORD_COUNT - 1;
+        if (man_y_ < 0) man_y_ = 0;
+        if (man_y_ >= COORD_COUNT) man_y_ = COORD_COUNT - 1;
+    }
+    if (e.type == SDL_EVENT_MOUSE_BUTTON_UP && e.button.button == SDL_BUTTON_RIGHT)
+    {
+        camera_drag_start_x_ = -1;
+        camera_drag_start_y_ = -1;
+    }
+
     // Tab 键:切换敌人属性面板
     if (e.type == SDL_EVENT_KEY_DOWN && e.key.key == SDLK_TAB)
     {
@@ -483,7 +534,7 @@ void BattleScene::readBattleInfo()
         //设置全部角色的位置层,避免今后出错
         // 自由对战:在敌人循环之前关闭摄像机跟随,避免摄像机被移到敌人位置
         if (has_custom_battle_info_) {
-            camera_follow_ = false;
+            // camera_follow_ = false;  // 已启用摄像机跟随
         }
         for (auto r : Save::getInstance()->getRoles())
         {
@@ -572,8 +623,8 @@ void BattleScene::readBattleInfo()
 
     // 自由对战：关闭摄像机跟随，并重置到地图中心（敌人循环可能把摄像机移走了）
     if (has_custom_battle_info_) {
-        camera_follow_ = false;
-        man_x_ = COORD_COUNT / 2;
+        // camera_follow_ = false;  // 已启用摄像机跟随
+        man_x_ = 4;  // 最佳摄像机X位置，使地图居中
         man_y_ = COORD_COUNT / 2;
     }
     

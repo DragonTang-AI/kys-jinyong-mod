@@ -41,6 +41,11 @@ protected:
     bool has_custom_battle_info_ = false;  // 是否使用自定义战斗信息
     bool camera_follow_ = true;              // 战斗中是否跟随当前行动角色（自由对战关闭）
 
+    // 摄像机手动控制（WSAD/方向键 + 鼠标右键拖动）
+    int camera_drag_start_x_ = -1, camera_drag_start_y_ = -1;  // 鼠标右键拖动起始坐标
+    int camera_drag_man_x_ = 0, camera_drag_man_y_ = 0;        // 拖动开始时的 man_x_/man_y_
+    static constexpr int CAMERA_MOVE_SPEED = 2;  // 键盘移动摄像机速度（格子/帧）
+
     Save* save_;
 
     std::vector<Role*> battle_roles_;    //所有参战角色
